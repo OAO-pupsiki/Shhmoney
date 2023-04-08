@@ -9,7 +9,7 @@ namespace Shhmoney.Data
 
         public RoleRepository()
         {
-            _dbContext = new DbContext();
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddRole(Role role)

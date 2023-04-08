@@ -2,6 +2,20 @@
 <Shell
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Shhmoney.AppShell">
+    xmlns:views="clr-namespace:Shhmoney.Views"
+    x:Class="Shhmoney.AppShell"
+    FlyoutBehavior="Disabled">
 
+    <ShellContent
+        Title="Authentication"
+        ContentTemplate="{DataTemplate views:AuthenticationPage}"
+        Route="Authentication" />
+    <ShellContent
+        Title="SignUp"
+        ContentTemplate="{DataTemplate views:SignUpPage}"
+        Route="SignUp" />
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="Login" />
 </Shell>

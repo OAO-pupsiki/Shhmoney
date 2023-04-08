@@ -8,7 +8,7 @@ namespace Shhmoney.Data
 
         public AccountRepository()
         {
-            _dbContext = new DbContext();
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddAccount(Account account)

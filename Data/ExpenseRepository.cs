@@ -8,7 +8,7 @@ namespace Shhmoney.Data
 
         public ExpenseRepository()
         {
-            _dbContext = new DbContext();
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddExpense(Expense expense)

@@ -7,8 +7,8 @@ namespace Shhmoney.Data
         private readonly DbContext _dbContext;
 
         public IncomeRepository()
-        { 
-            _dbContext = new DbContext();
+        {
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddIncome(Income income)

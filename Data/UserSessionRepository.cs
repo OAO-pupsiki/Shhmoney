@@ -8,17 +8,19 @@ namespace Shhmoney.Data
 
         public UserSessionRepository()
         {
-            _dbContext = new DbContext();
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddSession(UserSession session)
         {
             _dbContext.Sessions.Add(session);
+            _dbContext.SaveChanges();
         }
 
         public void UpdateSession(UserSession session) 
         {
             session.Expiration.AddDays(30);
+            _dbContext.SaveChanges();
         }
 
         public UserSession GetSessionByToken(string token)
@@ -29,6 +31,7 @@ namespace Shhmoney.Data
         public void RemoveSessionByToken(string token)
         {
             _dbContext.Sessions.Remove(GetSessionByToken(token));
+            _dbContext.SaveChanges();
         }
     }
 }

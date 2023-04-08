@@ -48,7 +48,7 @@ namespace Shhmoney.Services
             var userSession = new UserSession
             {
                 Token = token,
-                Expiration = DateTime.Now.AddDays(30),
+                Expiration = DateTime.Now.AddDays(30).ToUniversalTime(),
                 User = user
             };
             _userSessionRepository.AddSession(userSession);
@@ -66,7 +66,12 @@ namespace Shhmoney.Services
         private void SaveTokenToFile(string token)
         {
             byte[] bytes = Convert.FromBase64String(token);
-            File.WriteAllBytes(@"D:\token.bin", bytes);
+            string dir = FileSystem.Current.CacheDirectory;
+            string path = Path.Combine(dir, @"\token.txt");
+            using (var fstream = new FileStream(@"D:\token.txt", FileMode.OpenOrCreate))
+            {
+                fstream.Write(bytes, 0, bytes.Length);
+            }
         }
     }
 }
