@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Shhmoney.Models;
+using Shhmoney.Data;
+using Shhmoney.Services;
 
 namespace Shhmoney;
 
@@ -16,7 +19,7 @@ public static class MauiProgram
 			});
 
 #if DEBUG
-		builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();

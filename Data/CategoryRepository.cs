@@ -8,7 +8,7 @@ namespace Shhmoney.Data
 
         public CategoryRepository()
         {
-            _dbContext = new DbContext();
+            _dbContext = DbContext.GetDbContext();
         }
 
         public void AddCategory(Category category)

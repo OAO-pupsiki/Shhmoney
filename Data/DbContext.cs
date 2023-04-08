@@ -5,11 +5,17 @@ namespace Shhmoney.Data
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public DbContext() 
+        private static DbContext instance;
+
+        private DbContext() 
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
             Database.OpenConnection();
+        }
+
+        public static DbContext GetDbContext()
+        {
+            return instance ??= new DbContext();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,5 +30,6 @@ namespace Shhmoney.Data
         public DbSet<Income> Incomes { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserSession> Sessions { get; set; }
     }
 }
