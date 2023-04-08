@@ -7,7 +7,7 @@
     <StackLayout HorizontalOptions="Center">
         <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
             <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
-            <Label Text="Welcome to Shhmoney" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+            <Label Text="Login into Account" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
             <Entry Text="{Binding Username}" Placeholder="Username" Margin="0,0,0,10"/>
             <Entry Text="{Binding Password}" Placeholder="Password" Margin="0,0,0,10" IsPassword="True"/>
             <StackLayout VerticalOptions="Center" Orientation="Horizontal" Margin="0,0,0,10">
@@ -15,6 +15,10 @@
                 <Label Text="Remember me" FontSize="14" VerticalOptions="CenterAndExpand"/>
             </StackLayout>
             <Button HorizontalOptions="Fill" Text="Login" Margin="0,0,0,20"/>
+        </StackLayout>
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+            <Label Text="Dont have an account?" FontSize="14" VerticalOptions="CenterAndExpand"/>
+            <Button Command="{Binding SignUpPageCommand}" Text="Sing up" Margin="5" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue" FontSize="14" VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

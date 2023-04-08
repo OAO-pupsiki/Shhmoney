@@ -10,6 +10,7 @@ namespace Shhmoney.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand LoginCommand { get; set; }
+        public ICommand SignUpPageCommand { get; set; }
 
         private readonly AuthenticationService _authenticationService;
         private string _username;
@@ -29,6 +30,10 @@ namespace Shhmoney.ViewModels
                 {
 
                 }
+            });
+            SignUpPageCommand = new Command(() =>
+            {
+                Shell.Current.GoToAsync("//auth/signup");
             });
         }
 
