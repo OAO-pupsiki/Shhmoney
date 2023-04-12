@@ -31,5 +31,6 @@ namespace Shhmoney.Data
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserSession> Sessions { get; set; }
+
     }
 }

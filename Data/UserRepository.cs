@@ -1,4 +1,5 @@
-﻿using Shhmoney.Models;
+﻿using Microsoft.Maui.ApplicationModel.Communication;
+using Shhmoney.Models;
 
 namespace Shhmoney.Data
 {
@@ -30,6 +31,14 @@ namespace Shhmoney.Data
         public List<User> GetAllUsers()
         {
             return _dbContext.Users.ToList();
+        }
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
+        public User GetUserByEmail(string email)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.Email == email);
         }
     }
 }
