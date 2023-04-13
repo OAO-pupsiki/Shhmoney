@@ -16,5 +16,8 @@
         <ShellSection Route="signup" Title="Sign Up">
             <ShellContent ContentTemplate="{DataTemplate views:SignUpPage}" />
         </ShellSection>
+        <ShellSection Route="categories" Title="Categories">
+            <ShellContent ContentTemplate="{DataTemplate views:CategoriesPage}" />
+        </ShellSection>
     </ShellItem>
 </Shell>

@@ -9,6 +9,7 @@ namespace Shhmoney.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand LoginPageCommand { get; set; }
         public ICommand SignUpPageCommand { get; set; }
+        public ICommand CategoriesPageCommand { get; set; }
 
         public AuthenticationViewModel() 
         {
@@ -19,6 +20,10 @@ namespace Shhmoney.ViewModels
             SignUpPageCommand = new Command(() =>
             {
                 Shell.Current.GoToAsync("//auth/signup");
+            });
+            CategoriesPageCommand = new Command(() =>
+            {
+                Shell.Current.GoToAsync("//auth/categories");
             });
         }
     }

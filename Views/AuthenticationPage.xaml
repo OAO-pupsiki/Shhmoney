@@ -9,6 +9,7 @@
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
             <Button Command="{Binding LoginPageCommand}" Text="Log In" Margin="0,0,10,0" WidthRequest="150"/>
             <Button Command="{Binding SignUpPageCommand}" Text="Sign Up" Margin="10,0,0,0" WidthRequest="150"/>
+            <Button Command="{Binding CategoriesPageCommand}" Text="Categories" Margin="10,0,0,0" WidthRequest="150"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>
