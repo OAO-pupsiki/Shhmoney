@@ -28,6 +28,11 @@ namespace Shhmoney.Data
             return _dbContext.Sessions.SingleOrDefault(s => s.Token == token);
         }
 
+        public UserSession GetSessionByUser(User user)
+        {
+            return _dbContext.Sessions.SingleOrDefault(s => s.User == user);
+        }
+
         public void RemoveSessionByToken(string token)
         {
             _dbContext.Sessions.Remove(GetSessionByToken(token));

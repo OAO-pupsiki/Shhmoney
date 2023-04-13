@@ -2,6 +2,7 @@
 <Shell
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Shhmoney"
     xmlns:views="clr-namespace:Shhmoney.Views"
     x:Class="Shhmoney.AppShell"
     FlyoutBehavior="Disabled"
@@ -15,6 +16,11 @@
         </ShellSection>
         <ShellSection Route="signup" Title="Sign Up">
             <ShellContent ContentTemplate="{DataTemplate views:SignUpPage}" />
+        </ShellSection>
+    </ShellItem>
+    <ShellItem Route="home" Title="Home">
+        <ShellSection Route="main" Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </ShellSection>
     </ShellItem>
 </Shell>
