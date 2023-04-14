@@ -24,7 +24,7 @@ namespace Shhmoney.ViewModels
             });
             CategoriesPageCommand = new Command(() =>
             {
-                Shell.Current.GoToAsync("//auth/categories");
+                Shell.Current.GoToAsync("//home/categories");
             });
         }
     }

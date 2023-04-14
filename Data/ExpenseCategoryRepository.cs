@@ -38,7 +38,7 @@ namespace Shhmoney.Data
 
         public List<ExpenseCategory> GetExpenseCategoriesByUserId(int id)
         {
-            return _dbContext.ExpenseCategories.Where(c => c.Id == id).ToList();
+            return _dbContext.ExpenseCategories.Where(c => c.UserId == id).ToList();
         }
     }
 }
