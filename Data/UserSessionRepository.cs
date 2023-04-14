@@ -19,7 +19,7 @@ namespace Shhmoney.Data
 
         public void UpdateSession(UserSession session) 
         {
-            session.Expiration.AddDays(30);
+            session.Expiration = session.Expiration.AddDays(30);
             _dbContext.SaveChanges();
         }
 

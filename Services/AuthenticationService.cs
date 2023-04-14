@@ -2,8 +2,6 @@
 using Shhmoney.Data;
 using Shhmoney.Models;
 using System.Security.Cryptography;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Shhmoney.Services
 {
@@ -20,19 +18,28 @@ namespace Shhmoney.Services
             _userSessionRepository = new UserSessionRepository();
         }
 
-        public bool Login(string username, string password, bool rememberMe)
+        public void Login(string username, string password, bool rememberMe)
         {   
             User user = _userRepository.GetUserByUsername(username);
-            if (user != null && PasswordHasher.VerifyPassword(password, user.Password))
+
+            if (user == null)
+                throw new Exception("Wrong username");
+
+            if (!PasswordHasher.VerifyPassword(password, user.Password))
+                throw new Exception("Wrong password");
+
+            Utils.AppContext.CurrentUser = user;
+
+            if (rememberMe)
             {
                 var session = _userSessionRepository.GetSessionByUser(user);
-                if (rememberMe)
-                {
-                    UpdateSession(user);
-                }
-                return true;
+
+                if (session == null)
+                    throw new Exception("Unable to load user session");
+
+                _userSessionRepository.UpdateSession(session);
+                SaveTokenToFile(session.Token);
             }
-            return false;
          }
 
         public void LogOut(User user)
@@ -51,19 +58,31 @@ namespace Shhmoney.Services
             byte[] bytes = File.ReadAllBytes(path);
             string token = Convert.ToBase64String(bytes);
             var session = _userSessionRepository.GetSessionByToken(token);
-            if (session.User == null)
-                return false;
 
-            return session.Expiration > DateTime.UtcNow;
+            if (session == null)
+                throw new Exception("Unable to load user session");
+
+            if (session.Expiration > DateTime.UtcNow)
+            {
+                var user = session.User;
+                Utils.AppContext.CurrentUser = user;
+                return true;
+            }
+
+            return false;
         }
 
         public bool SignUp(string username, string password, string email)
         {
             if (_userRepository.GetUserByUsername(username) != null)
-                throw new Exception("username is already taken");
+                throw new Exception("Username is already taken");
 
             var role = _roleRepository.GetRoleByName("User");
- 
+            role ??= new Role
+            {
+                Name = "User",
+                Description = "Simple user role"
+            };
 
             var hashedPassword = PasswordHasher.HashPassword(password);
             var user = new User
@@ -92,12 +111,6 @@ namespace Shhmoney.Services
             SaveTokenToFile(token);
         }
 
-        private void UpdateSession(User user)
-        {
-            var session = _userSessionRepository.GetSessionByUser(user);
-            _userSessionRepository.UpdateSession(session);
-        }
-
         private string GenerateToken()
         {
             var rng = RandomNumberGenerator.Create();
@@ -111,6 +124,7 @@ namespace Shhmoney.Services
             string path = @"C:\ProgramData\Shhmoney";
             Directory.CreateDirectory(path);
             byte[] bytes = Convert.FromBase64String(token);
+
             using (var fstream = new FileStream(path + @"\data.bin", FileMode.OpenOrCreate))
             {
                 fstream.Write(bytes, 0, bytes.Length);
