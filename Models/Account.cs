@@ -1,4 +1,6 @@
-﻿namespace Shhmoney.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Shhmoney.Models
 {
     public class Account
     {
@@ -6,6 +8,7 @@
 
         public int Id { get; set; }
         public string Name { get; set; }
+        [EnumDataType(typeof(PaymentType))]
         public PaymentType PaymentType { get; set; }
         public List<Income> Incomes { get; set; }
         public List<Expense> Expenses { get; set; }
