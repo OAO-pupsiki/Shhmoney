@@ -31,5 +31,19 @@ namespace Shhmoney.Data
         {
             return _dbContext.Incomes.Where(i => i.IncomeCategory == category).ToList();
         }
+
+        public void DeleteIncome(int id)
+        {
+            var income = GetIncomeById(id);
+            _dbContext.Incomes.Remove(income);
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateIncome(int id)
+        {
+            var income = GetIncomeById(id);
+            _dbContext.Incomes.Update(income);
+            _dbContext.SaveChanges();
+        }
     }
 }

@@ -31,5 +31,20 @@ namespace Shhmoney.Data
         {
             return _dbContext.Expenses.Where(e => e.ExpenseCategory == category).ToList();
         }
+
+
+        public void DeleteExpense(int id)
+        {
+            var expense = GetExpensesById(id);
+            _dbContext.Expenses.Remove(expense);
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateExpense(int id)
+        {
+            var expense = GetExpensesById(id);
+            _dbContext.Expenses.Update(expense);
+            _dbContext.SaveChanges();
+        }
     }
 }
