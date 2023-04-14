@@ -53,6 +53,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
 	</ItemGroup>
 
 	<ItemGroup>

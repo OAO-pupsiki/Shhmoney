@@ -2,45 +2,101 @@
 using Shhmoney.Data;
 using Shhmoney.Models;
 using System.Security.Cryptography;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Shhmoney.Services
 {
     public class AuthenticationService
     {
         private readonly UserRepository _userRepository;
+        private readonly RoleRepository _roleRepository;
         private readonly UserSessionRepository _userSessionRepository;
 
         public AuthenticationService()
         {
             _userRepository = new UserRepository();
+            _roleRepository = new RoleRepository();
             _userSessionRepository = new UserSessionRepository();
         }
 
-        public bool Login(string username, string password, bool rememberMe)
+        public void Login(string username, string password, bool rememberMe)
         {   
             User user = _userRepository.GetUserByUsername(username);
-            if (user != null && password == user.Password /*PasswordHasher.VerifyPassword(password, user.Password)*/)
+
+            if (user == null)
+                throw new Exception("Wrong username");
+
+            if (!PasswordHasher.VerifyPassword(password, user.Password))
+                throw new Exception("Wrong password");
+
+            Utils.AppContext.CurrentUser = user;
+
+            if (rememberMe)
             {
-                if (rememberMe)
-                {
-                    CreateSession(user);
-                }
+                var session = _userSessionRepository.GetSessionByUser(user);
+
+                if (session == null)
+                    throw new Exception("Unable to load user session");
+
+                _userSessionRepository.UpdateSession(session);
+                SaveTokenToFile(session.Token);
+            }
+         }
+
+        public void LogOut(User user)
+        {
+            var session = _userSessionRepository.GetSessionByUser(user);
+            session.Expiration = DateTime.UtcNow;
+        }
+
+        public bool TryAutoLogin()
+        {
+            string path = @"C:\ProgramData\Shhmoney\data.bin";
+
+            if(!File.Exists(path))
+                return false;
+
+            byte[] bytes = File.ReadAllBytes(path);
+            string token = Convert.ToBase64String(bytes);
+            var session = _userSessionRepository.GetSessionByToken(token);
+
+            if (session == null)
+                throw new Exception("Unable to load user session");
+
+            if (session.Expiration > DateTime.UtcNow)
+            {
+                var user = session.User;
+                Utils.AppContext.CurrentUser = user;
                 return true;
             }
+
             return false;
         }
 
-        public void LogOut()
+        public bool SignUp(string username, string password, string email)
         {
-            
-        }
+            if (_userRepository.GetUserByUsername(username) != null)
+                throw new Exception("Username is already taken");
 
-        /*public bool TryAutoLogin()
-        {
-        
-        }*/
+            var role = _roleRepository.GetRoleByName("User");
+            role ??= new Role
+            {
+                Name = "User",
+                Description = "Simple user role"
+            };
+
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            var user = new User
+            {
+                Username = username,
+                Password = hashedPassword,
+                Email = email,
+                Role = role
+            };
+
+            _userRepository.AddUser(user);
+            CreateSession(user);
+            return true;
+        }
 
         private void CreateSession(User user)
         {
@@ -48,7 +104,7 @@ namespace Shhmoney.Services
             var userSession = new UserSession
             {
                 Token = token,
-                Expiration = DateTime.Now.AddDays(30).ToUniversalTime(),
+                Expiration = DateTime.UtcNow,
                 User = user
             };
             _userSessionRepository.AddSession(userSession);
@@ -65,10 +121,11 @@ namespace Shhmoney.Services
 
         private void SaveTokenToFile(string token)
         {
+            string path = @"C:\ProgramData\Shhmoney";
+            Directory.CreateDirectory(path);
             byte[] bytes = Convert.FromBase64String(token);
-            string dir = FileSystem.Current.CacheDirectory;
-            string path = Path.Combine(dir, @"\token.txt");
-            using (var fstream = new FileStream(@"D:\token.txt", FileMode.OpenOrCreate))
+
+            using (var fstream = new FileStream(path + @"\data.bin", FileMode.OpenOrCreate))
             {
                 fstream.Write(bytes, 0, bytes.Length);
             }

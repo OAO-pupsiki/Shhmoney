@@ -8,8 +8,8 @@
         public string Currency { get; set; }
         public DateTime DateTime { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int ExpenseCategoryId { get; set; }
+        public ExpenseCategory ExpenseCategory { get; set; }
         public int AccountId { get; set; }
         public Account Account { get; set; }
     }

@@ -23,7 +23,7 @@ namespace Shhmoney.ViewModels
             _authenticationService = new AuthenticationService();
             SignUpCommand = new Command(() =>
             {
-                if (/*Sign Up BL*/true)
+                if (_authenticationService.SignUp(Username, Password, Email))
                 {
                     //Redirect to the login page
                     Shell.Current.GoToAsync("//auth/login");

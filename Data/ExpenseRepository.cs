@@ -29,7 +29,7 @@ namespace Shhmoney.Data
 
         public List<Expense> GetExpensesByCategory(Category category)
         {
-            return _dbContext.Expenses.Where(e => e.Category == category).ToList();
+            return _dbContext.Expenses.Where(e => e.ExpenseCategory == category).ToList();
         }
     }
 }

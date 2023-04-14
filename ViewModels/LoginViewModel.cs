@@ -22,13 +22,15 @@ namespace Shhmoney.ViewModels
             _authenticationService = new AuthenticationService();
             LoginCommand = new Command(() =>
             {
-                if (_authenticationService.Login(Username, Password, RememberMe))
-                {
-                    //Redirect to the main page
-                }
-                else
-                {
 
+                try
+                {
+                    _authenticationService.Login(Username, Password, RememberMe);
+                    Shell.Current.GoToAsync("//home/main");
+                }
+                catch(Exception e)
+                {
+                    
                 }
             });
             SignUpPageCommand = new Command(() =>
