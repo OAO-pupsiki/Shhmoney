@@ -91,7 +91,7 @@ namespace Shhmoney.Services
             expenseCategory.Name = name;
             expenseCategory.Description = description;
 
-            _expenseCategoryRepository.UpdateExpenseCategory(expenseCategoryId);
+            _expenseCategoryRepository.UpdateExpenseCategory(expenseCategory);
         }
 
         public void DeleteExpenseCategory(int expenseCategoryId, User user)
@@ -104,7 +104,7 @@ namespace Shhmoney.Services
             if (expenseCategory.User != user)
                 throw new Exception("No rights to delete income category");
 
-            _expenseCategoryRepository.DeleteExpenseCategory(expenseCategoryId);
+            _expenseCategoryRepository.DeleteExpenseCategory(expenseCategory);
         }
     }
 }

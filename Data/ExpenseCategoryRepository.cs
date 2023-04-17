@@ -17,16 +17,14 @@ namespace Shhmoney.Data
             _dbContext.SaveChanges();
         }
 
-        public void DeleteExpenseCategory(int id)
+        public void DeleteExpenseCategory(ExpenseCategory expenseCategory)
         {
-            var expenseCategory = GetExpenseCategory(id);
             _dbContext.ExpenseCategories.Remove(expenseCategory);
             _dbContext.SaveChanges();
         }
 
-        public void UpdateExpenseCategory(int id)
+        public void UpdateExpenseCategory(ExpenseCategory expenseCategory)
         {
-            var expenseCategory = GetExpenseCategory(id);
             _dbContext.ExpenseCategories.Update(expenseCategory);
             _dbContext.SaveChanges();
         }

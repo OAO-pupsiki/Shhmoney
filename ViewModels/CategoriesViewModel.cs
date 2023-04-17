@@ -11,32 +11,77 @@ namespace Shhmoney.ViewModels;
 public class CategoriesViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    public ICommand AddCommand { get; set; }
-    private readonly TransactionService _transactionService;
+    public ObservableCollection<ExpenseCategory> Categories { get; set; } 
 
+    public ICommand AddCommand { get; set; }
+    public ICommand DeleteCommand { get; set; }
+    public ICommand ChangeCommand { get; set; }
+    public ICommand RefreshCommand { get; set; }
+
+    private readonly TransactionService _transactionService;
     private string _name;
-    public List<ExpenseCategory> Categories { get; } = new();
+    private string _newName;
+       
     public CategoriesViewModel()
     {
         _transactionService = new TransactionService();
-        Categories = _transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser);
+        GetAllCategories();
+
         AddCommand = new Command(() =>
         {
             if (string.IsNullOrWhiteSpace(_name))
             {
-                Shell.Current.DisplayAlert("������", "������������ ��������� �� ����� ���� ������", "�K");
+                Shell.Current.DisplayAlert("Ошибка", "Наименование категории не может быть пустым", "ОK");
             }
             else 
             {
                 _transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser);
-                Shell.Current.DisplayAlert("�����������", "������� ��������� ����� ���������!", "�K");
+                Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
                 Name = string.Empty;
-
+                GetAllCategories();
             }
 
         });
+
+        DeleteCommand = new Command((object? category) =>
+        {
+            if (category is ExpenseCategory expenseCategory)
+            {
+                _transactionService.DeleteExpenseCategory(expenseCategory.Id, Utils.AppContext.CurrentUser);
+                Categories.Remove(expenseCategory);
+                Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+                GetAllCategories();
+            }
+            else
+            {
+                Shell.Current.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
+            }
+
+        });
+
+        ChangeCommand = new Command((object? category) =>
+        {
+            //var test = Shell.Current.GetValuenewName;
+            if (category is ExpenseCategory expenseCategory)
+            {             
+               _transactionService.ChangeExpenseCategory(expenseCategory.Id, NewName, string.Empty);
+                Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
+                NewName = string.Empty;
+                GetAllCategories();
+            }
+            else
+            {
+                Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
+            }
+        });
     }
-    [Required(ErrorMessage = "���������� ������� ������������ ����� ���������.")]
+
+    private void GetAllCategories()
+    {
+        Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
+    }
+
+    [Required(ErrorMessage = "Пожалуйста введите наименование новой категории.")]
     public string Name
     {
         get => _name;
@@ -48,6 +93,19 @@ public class CategoriesViewModel : INotifyPropertyChanged
             OnProperyChanged();
         }
     }
+
+    public string NewName
+    {
+        get => _newName;
+        set
+        {
+            if (_newName == value)
+                return;
+            _newName = value;
+            OnProperyChanged();
+        }
+    }
+
     public void OnProperyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

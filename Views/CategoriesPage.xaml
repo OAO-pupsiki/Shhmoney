@@ -5,7 +5,9 @@
              x:Class="Shhmoney.Views.CategoriesPage"
              x:DataType="viewmodels:CategoriesViewModel"
              Title="CategoriesPage">
-    <StackLayout HorizontalOptions="Center">
+    <ScrollView Margin="20">
+       
+        <StackLayout HorizontalOptions="Center">
         <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
             <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
             <Label Text="Введите наименование новой категории" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
@@ -16,18 +18,30 @@
             </StackLayout>
             <Button Command="{Binding AddCommand}" HorizontalOptions="Fill" Text="Добавить" Margin="0,0,0,20"/>
         </StackLayout>
-        <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
-        <ListView ItemsSource="{Binding Categories}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Name}" />
-                        </VerticalStackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
-    </StackLayout>
+            <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
+                <ListView x:Name="expencecategoriesListView" ItemsSource="{Binding Categories}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Name}" />
+                                </VerticalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Button Text="Удалить" WidthRequest="100" HorizontalOptions="Start"
+                Command="{Binding DeleteCommand}"
+                CommandParameter="{Binding Source={x:Reference Name=expencecategoriesListView}, Path=SelectedItem}"  />
+  
+        <Label Text="Введите наименование категории, которую хотите изменить" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,20,20"/>
+            <Entry x:Name="newName" Text="{Binding NewName}" Placeholder="Категория" Margin="0,0,0,20"/>
+            <Button Text="Изменить" WidthRequest="100" HorizontalOptions="Start"
+                        Command="{Binding ChangeCommand}" 
+                        CommandParameter="{Binding Source={x:Reference Name=expencecategoriesListView}, Path=SelectedItem}"  />
+            
+        </StackLayout>
+                   
+    </ScrollView>
 </ContentPage>
