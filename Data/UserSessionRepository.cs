@@ -27,6 +27,11 @@ namespace Shhmoney.Data
         {
             return _dbContext.Sessions.SingleOrDefault(s => s.Token == token);
         }
+        public UserSession GetSessionByUserId(int UserId)
+        {
+            return _dbContext.Sessions.SingleOrDefault(s => s.UserId == UserId);
+        }
+
 
         public UserSession GetSessionByUser(User user)
         {
