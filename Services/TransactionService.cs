@@ -66,7 +66,7 @@ namespace Shhmoney.Services
             return _expenseCategoryRepository.GetExpenseCategoriesByUserId(user.Id);
         }
 
-        public void AddExpenseCategory(string name, string description, User user)
+        public ExpenseCategory AddExpenseCategory(string name, string description, User user)
         {
             if (user == null)
                 throw new Exception("User is null");
@@ -78,7 +78,7 @@ namespace Shhmoney.Services
                 User = user
             };
 
-            _expenseCategoryRepository.AddExpenseCategory(expenseCategory);
+            return _expenseCategoryRepository.AddExpenseCategory(expenseCategory);
         }
 
         public void ChangeExpenseCategory(int expenseCategoryId, string name, string description)

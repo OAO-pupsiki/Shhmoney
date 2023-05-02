@@ -11,10 +11,11 @@ namespace Shhmoney.Data
             _dbContext = DbContext.GetDbContext();
         }
 
-        public void AddExpenseCategory(ExpenseCategory expenseCategory)
+        public ExpenseCategory AddExpenseCategory(ExpenseCategory expenseCategory)
         {
-            _dbContext.ExpenseCategories.Add(expenseCategory);
+            var dbItem = _dbContext.ExpenseCategories.Add(expenseCategory);
             _dbContext.SaveChanges();
+            return dbItem.Entity;
         }
 
         public void DeleteExpenseCategory(ExpenseCategory expenseCategory)

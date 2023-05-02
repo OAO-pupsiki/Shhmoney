@@ -25,7 +25,7 @@ public class CategoriesViewModel : INotifyPropertyChanged
     public CategoriesViewModel()
     {
         _transactionService = new TransactionService();
-        GetAllCategories();
+        Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
 
         AddCommand = new Command(() =>
         {
@@ -35,10 +35,9 @@ public class CategoriesViewModel : INotifyPropertyChanged
             }
             else 
             {
-                _transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser);
+                Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
                 Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
                 Name = string.Empty;
-                GetAllCategories();
             }
 
         });
@@ -50,7 +49,6 @@ public class CategoriesViewModel : INotifyPropertyChanged
                 _transactionService.DeleteExpenseCategory(expenseCategory.Id, Utils.AppContext.CurrentUser);
                 Categories.Remove(expenseCategory);
                 Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
-                GetAllCategories();
             }
             else
             {
@@ -66,8 +64,14 @@ public class CategoriesViewModel : INotifyPropertyChanged
             {             
                _transactionService.ChangeExpenseCategory(expenseCategory.Id, NewName, string.Empty);
                 Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
+
+                var index = Categories.IndexOf(expenseCategory);
+                Categories.RemoveAt(index);
+                expenseCategory.Name = NewName;
+
+                Categories.Insert(index, expenseCategory);
+
                 NewName = string.Empty;
-                GetAllCategories();
             }
             else
             {
@@ -76,11 +80,7 @@ public class CategoriesViewModel : INotifyPropertyChanged
         });
     }
 
-    private void GetAllCategories()
-    {
-        Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
-    }
-
+   
     [Required(ErrorMessage = "Пожалуйста введите наименование новой категории.")]
     public string Name
     {
