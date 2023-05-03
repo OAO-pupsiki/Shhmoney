@@ -5,43 +5,54 @@
              x:Class="Shhmoney.Views.CategoriesPage"
              x:DataType="viewmodels:CategoriesViewModel"
              Title="CategoriesPage">
-    <ScrollView Margin="20">
-       
-        <StackLayout HorizontalOptions="Center">
-        <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
-            <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
-            <Label Text="Введите наименование новой категории" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-            <Entry Text="{Binding Name}" Placeholder="Категория" Margin="0,0,0,10"/>
-            <StackLayout VerticalOptions="Center" Orientation="Horizontal" Margin="0,0,0,10">
-                <RadioButton GroupName="categoryType" Content="Расходы" IsChecked="True" />
-                <RadioButton GroupName="categorType" Content="Доходы" />
-            </StackLayout>
-            <Button Command="{Binding AddCommand}" HorizontalOptions="Fill" Text="Добавить" Margin="0,0,0,20"/>
-        </StackLayout>
-            <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
-                <ListView x:Name="expencecategoriesListView" ItemsSource="{Binding Categories}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <VerticalStackLayout>
-                                    <Label Text="{Binding Name}" />
-                                </VerticalStackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-            <Button Text="Удалить" WidthRequest="100" HorizontalOptions="Start"
+    <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
+        <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
+
+            <StackLayout HorizontalOptions="Center">
+                <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
+                    <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
+                    <Label Text="Введите наименование новой категории" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+                    <Entry Text="{Binding Name}" Placeholder="Категория" Margin="0,0,0,10"/>
+                    <StackLayout VerticalOptions="Center" Orientation="Horizontal" Margin="0,0,0,10">
+                        <RadioButton GroupName="categoryType" Content="Расходы" IsChecked="True" />
+                        <RadioButton GroupName="categorType" Content="Доходы" />
+                    </StackLayout>
+                    <Button Command="{Binding AddCommand}" HorizontalOptions="Fill" Text="Добавить" Margin="0,0,0,20"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
+                    <ListView x:Name="expencecategoriesListView" ItemsSource="{Binding Categories}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding Name}" />
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <Button Text="Удалить" WidthRequest="100" HorizontalOptions="Start"
                 Command="{Binding DeleteCommand}"
                 CommandParameter="{Binding Source={x:Reference Name=expencecategoriesListView}, Path=SelectedItem}"  />
-  
-        <Label Text="Введите наименование категории, которую хотите изменить" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,20,20"/>
-            <Entry x:Name="newName" Text="{Binding NewName}" Placeholder="Категория" Margin="0,0,0,20"/>
-            <Button Text="Изменить" WidthRequest="100" HorizontalOptions="Start"
+
+                <Label Text="Введите наименование категории, которую хотите изменить" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,20,20"/>
+                <Entry x:Name="newName" Text="{Binding NewName}" Placeholder="Категория" Margin="0,0,0,20"/>
+                <Button Text="Изменить" WidthRequest="100" HorizontalOptions="Start"
                         Command="{Binding ChangeCommand}" 
                         CommandParameter="{Binding Source={x:Reference Name=expencecategoriesListView}, Path=SelectedItem}"  />
-            
+
+            </StackLayout>
+
+        </ScrollView>
+
+        <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
+            <Button Text="Главная" Clicked="OnButtonClicked" />
+            <Button Text="Категории" Margin="0, 5, 0, 0" BackgroundColor="DimGray" />
+            <Button Text="Счета" Margin="0, 5, 0, 0" IsEnabled="False"/>
+            <Button Text="Статьи" Margin="0, 5, 0, 0" IsEnabled="False"/>
+            <Button Text="Настройки" Margin="0, 5, 0, 0" IsEnabled="False"/>
         </StackLayout>
-                   
-    </ScrollView>
+    </Grid>
+
 </ContentPage>

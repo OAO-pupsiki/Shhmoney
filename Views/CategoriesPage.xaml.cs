@@ -9,4 +9,8 @@ public partial class CategoriesPage : ContentPage
         BindingContext = new CategoriesViewModel();
 
     }
+    private void OnButtonClicked(object sender, System.EventArgs e)
+    {
+        Shell.Current.GoToAsync("//home/main");
+    }
 }

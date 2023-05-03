@@ -26,7 +26,7 @@ namespace Shhmoney.ViewModels
                 try
                 {
                     _authenticationService.Login(Username, Password, RememberMe);
-                    Shell.Current.GoToAsync("//home/categories");
+                    Shell.Current.GoToAsync("//home/main");
                 }
                 catch(Exception e)
                 {

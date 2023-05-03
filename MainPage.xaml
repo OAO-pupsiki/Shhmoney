@@ -1,7 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shhmoney.MainPage"
-             Title="Main Page">
+             x:Class="Shhmoney.MainPage">
+    <Grid RowDefinitions="*" ColumnDefinitions=".20*, .60*, .20*">
+
+        <StackLayout Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0" >
+            <Picker WidthRequest="200" x:Name="MoneyTypes" SelectedIndexChanged="PickerSelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>Наличные</x:String>
+                    <x:String>Карта</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <ListView Margin="20, 5, 0, 0">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>День</x:String>
+                        <x:String>Неделя</x:String>
+                        <x:String>Месяц</x:String>
+                        <x:String>Год</x:String>
+                        <x:String>Все</x:String>
+                        <x:String>Интервал</x:String>
+                    </x:Array>
+                </ListView.ItemsSource>
+            </ListView>
+        </StackLayout>
+        <Grid RowDefinitions="70, 35, 35, 35, *" ColumnDefinitions="*, 200, *" Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
+            <DatePicker Format="d" WidthRequest="200" Grid.Column="1" Grid.Row="0" >
+            </DatePicker>
+            <Border Stroke="Gray" BackgroundColor="Green" Grid.Column="1" Grid.Row="1" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="2" />
+                </Border.StrokeShape>
+                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="БАЛАНС 1221.71 BYN" />
+            </Border>
+            <Border Stroke="Gray" Grid.Column="1" Grid.Row="2" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="2" />
+                </Border.StrokeShape>
+                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Green" Text="1234.00 BYN" />
+            </Border>
+            <Border Stroke="Gray" Grid.Column="1" Grid.Row="3" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="2" />
+                </Border.StrokeShape>
+                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Red" Text="1234.00 BYN" />
+            </Border>
+        </Grid>
+        <StackLayout Grid.Column="2" Grid.Row="0" Padding="5, 20, 5, 0">
+            <Button Text="Главная" BackgroundColor="DimGray" />
+            <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnButtonClicked" />
+            <Button Text="Счета" Margin="0, 5, 0, 0" IsEnabled="False"/>
+            <Button Text="Статьи" Margin="0, 5, 0, 0" IsEnabled="False"/>
+            <Button Text="Настройки" Margin="0, 5, 0, 0" IsEnabled="False"/>
+        </StackLayout>
+    </Grid>
 
 </ContentPage>
