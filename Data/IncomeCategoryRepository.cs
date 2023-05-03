@@ -11,10 +11,11 @@ namespace Shhmoney.Data
             _dbContext = DbContext.GetDbContext();
         }
 
-        public void AddIncomeCategory(IncomeCategory incomeCategory)
+        public IncomeCategory AddIncomeCategory(IncomeCategory incomeCategory)
         {
-            _dbContext.IncomeCategories.Add(incomeCategory);
+            var dbItem = _dbContext.IncomeCategories.Add(incomeCategory);
             _dbContext.SaveChanges();
+            return dbItem.Entity;
         }
 
         public void DeleteIncomeCategory(int id)
@@ -38,7 +39,7 @@ namespace Shhmoney.Data
 
         public List<IncomeCategory> GetIncomeCategoriesByUserId(int id)
         {
-            return _dbContext.IncomeCategories.Where(c => c.Id == id).ToList();
+            return _dbContext.IncomeCategories.Where(c => c.UserId == id).ToList();
         }
     }
 }

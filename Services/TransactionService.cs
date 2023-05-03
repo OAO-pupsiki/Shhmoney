@@ -20,7 +20,7 @@ namespace Shhmoney.Services
             return _incomeCategoryRepository.GetIncomeCategoriesByUserId(user.Id);
         }
 
-        public void AddIncomeCategory(string name, string description, User user)
+        public IncomeCategory AddIncomeCategory(string name, string description, User user)
         {
             if (user == null)
                 throw new Exception("User is null");
@@ -32,7 +32,7 @@ namespace Shhmoney.Services
                 User = user
             };
 
-            _incomeCategoryRepository.AddIncomeCategory(incomeCategory);
+           return _incomeCategoryRepository.AddIncomeCategory(incomeCategory);
         }
 
         public void ChangeIncomeCategory(int incomeCategoryId, string name, string description)

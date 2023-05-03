@@ -12,10 +12,13 @@ public class CategoriesViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
     public ObservableCollection<ExpenseCategory> Categories { get; set; } 
+    public ObservableCollection<IncomeCategory> IncomeCategories { get; set; } 
 
     public ICommand AddCommand { get; set; }
     public ICommand DeleteCommand { get; set; }
+    public ICommand DeleteIncomeCategoryCommand { get; set; }
     public ICommand ChangeCommand { get; set; }
+    public ICommand ChangeIncomeCategoryCommand { get; set; }
     public ICommand RefreshCommand { get; set; }
 
     private readonly TransactionService _transactionService;
@@ -26,6 +29,7 @@ public class CategoriesViewModel : INotifyPropertyChanged
     {
         _transactionService = new TransactionService();
         Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
+        IncomeCategories = new ObservableCollection<IncomeCategory>(_transactionService.GetIncomeCategoriesByUser(Utils.AppContext.CurrentUser));
 
         AddCommand = new Command(() =>
         {
@@ -35,8 +39,16 @@ public class CategoriesViewModel : INotifyPropertyChanged
             }
             else 
             {
-                Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
-                Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                if (IsExpenses)
+                {
+                    Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+                    Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                }
+                else
+                {
+                    IncomeCategories.Add(_transactionService.AddIncomeCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+                    Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                }
                 Name = string.Empty;
             }
 
@@ -48,6 +60,21 @@ public class CategoriesViewModel : INotifyPropertyChanged
             {
                 _transactionService.DeleteExpenseCategory(expenseCategory.Id, Utils.AppContext.CurrentUser);
                 Categories.Remove(expenseCategory);
+                Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+            }
+            else
+            {
+                Shell.Current.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
+            }
+
+        });
+
+        DeleteIncomeCategoryCommand = new Command((object? category) =>
+        {
+            if (category is IncomeCategory incomeCategory)
+            {
+                _transactionService.DeleteIncomeCategory(incomeCategory.Id, Utils.AppContext.CurrentUser);
+                IncomeCategories.Remove(incomeCategory);
                 Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
             }
             else
@@ -78,6 +105,28 @@ public class CategoriesViewModel : INotifyPropertyChanged
                 Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
             }
         });
+
+        ChangeIncomeCategoryCommand = new Command((object? category) =>
+        {
+            //var test = Shell.Current.GetValuenewName;
+            if (category is IncomeCategory incomeCategory)
+            {
+                _transactionService.ChangeIncomeCategory(incomeCategory.Id, NewName2, string.Empty);
+                Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
+
+                var index = IncomeCategories.IndexOf(incomeCategory);
+                IncomeCategories.RemoveAt(index);
+                incomeCategory.Name = NewName2;
+
+                IncomeCategories.Insert(index, incomeCategory);
+
+                NewName2 = string.Empty;
+            }
+            else
+            {
+                Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
+            }
+        });
     }
 
    
@@ -102,6 +151,32 @@ public class CategoriesViewModel : INotifyPropertyChanged
             if (_newName == value)
                 return;
             _newName = value;
+            OnProperyChanged();
+        }
+    }
+
+    private string _newName2;
+    public string NewName2
+    {
+        get => _newName2;
+        set
+        {
+            if (_newName2 == value)
+                return;
+            _newName2 = value;
+            OnProperyChanged();
+        }
+    }
+
+    private bool _isExpenses = true;
+    public bool IsExpenses
+    {
+        get => _isExpenses;
+        set
+        {
+            if (_isExpenses == value)
+                return;
+            _isExpenses = value;
             OnProperyChanged();
         }
     }
