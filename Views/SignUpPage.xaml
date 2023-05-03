@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
              x:Class="Shhmoney.Views.SignUpPage"
-             x:DataType="viewmodels:SignUpViewModel">
+             x:DataType="viewmodels:SignUpViewModel"
+             Shell.NavBarIsVisible="false">
     <StackLayout VerticalOptions="Center">
         <StackLayout VerticalOptions="Center" WidthRequest="250" Margin="20">
             <Label Text="Create an Account" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>

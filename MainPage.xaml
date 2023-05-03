@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shhmoney.MainPage">
-    <!--<Button Command="{Binding CategoriesPageCommand}" Text="Категории" Margin="10,0,0,0" WidthRequest="150"/>-->
+             x:Class="Shhmoney.MainPage"
+             Title="Main Page">
 
 </ContentPage>

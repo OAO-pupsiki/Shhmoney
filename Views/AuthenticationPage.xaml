@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
              x:Class="Shhmoney.Views.AuthenticationPage"
-             x:DataType="viewmodels:AuthenticationViewModel">
+             x:DataType="viewmodels:AuthenticationViewModel"
+             Shell.NavBarIsVisible="false">
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="20">
         <Label Text="Welcome to Shhmoney" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
