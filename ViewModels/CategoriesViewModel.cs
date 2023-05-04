@@ -54,6 +54,14 @@ public class CategoriesViewModel : INotifyPropertyChanged
 
         });
 
+        void Delete(ExpenseCategory expenseCategory)
+        {
+            if (Categories.Contains(expenseCategory))
+               {
+                Categories.Remove(expenseCategory);
+            }
+        }
+
         DeleteCommand = new Command((object? category) =>
         {
             if (category is ExpenseCategory expenseCategory)

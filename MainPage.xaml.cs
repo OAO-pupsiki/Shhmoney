@@ -12,8 +12,12 @@ public partial class MainPage : ContentPage
     {
         //DisplayAlert("Вид денежных средств", $"Вы выбрали: {MoneyTypes.SelectedItem}", "Oк");
     }
-    private void OnButtonClicked(object sender, System.EventArgs e)
+    private void OnCategoriesClicked(object sender, System.EventArgs e)
     {
         Shell.Current.GoToAsync("//home/categories");
+    }
+    private void OnSettingsClicked(object sender, System.EventArgs e)
+    {
+        Shell.Current.GoToAsync("//home/settings");
     }
 }

@@ -23,6 +23,21 @@
                     <ListView x:Name="expensecategoriesListView" ItemsSource="{Binding Categories}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
+                                <!--<SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Удалить"
+                                       BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CategoriesViewModel}}, Path=DeleteCommand}"
+                                       CommandParameter="{Binding}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Grid Padding="0,5">
+                                        <Frame>
+                                            <Label Text="{Binding Name}"/>  
+                                        </Frame>
+                                    </Grid>
+                                 </SwipeView>-->
                                 <ViewCell>
                                     <VerticalStackLayout>
                                         <Label Text="{Binding Name}" />
@@ -47,6 +62,7 @@
                     </ListView>
                 </StackLayout>
 
+                
 
                 <Button Text="Удалить категорию расходов" WidthRequest="400" HorizontalOptions="Start"
                 Command="{Binding DeleteCommand}"
@@ -73,11 +89,11 @@
         </ScrollView>
 
         <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
-            <Button Text="Главная" Clicked="OnButtonClicked" />
+            <Button Text="Главная" Clicked="OnMainClicked" />
             <Button Text="Категории" Margin="0, 5, 0, 0" BackgroundColor="DimGray" />
             <Button Text="Счета" Margin="0, 5, 0, 0" IsEnabled="False"/>
             <Button Text="Статьи" Margin="0, 5, 0, 0" IsEnabled="False"/>
-            <Button Text="Настройки" Margin="0, 5, 0, 0" IsEnabled="False"/>
+            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked" />
         </StackLayout>
     </Grid>
 

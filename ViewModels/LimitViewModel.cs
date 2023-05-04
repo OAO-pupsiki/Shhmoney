@@ -23,7 +23,6 @@ namespace Shhmoney.ViewModels
         private readonly TransactionService _transactionService;
         private ExpenseCategory _selectedCategory;
         private int _limit;
-        private int _totalLimit;
 
         public LimitViewModel()
         {
