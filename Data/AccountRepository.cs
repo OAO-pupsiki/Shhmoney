@@ -11,10 +11,11 @@ namespace Shhmoney.Data
             _dbContext = DbContext.GetDbContext();
         }
 
-        public void AddAccount(Account account)
+        public Account AddAccount(Account account)
         {
-            _dbContext.Accounts.Add(account);
+            var dbItem = _dbContext.Accounts.Add(account);
             _dbContext.SaveChanges();
+            return dbItem.Entity;
         }
 
         public Account GetAccountById(int id)

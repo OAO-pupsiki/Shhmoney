@@ -21,4 +21,12 @@ public partial class LimitsPage : ContentPage
     {
         Shell.Current.GoToAsync("//home/categories");
     }
+    private void OnAccountsClicked(object sender, System.EventArgs e)
+    {
+        Shell.Current.GoToAsync("//home/accounts");
+    }
+    private void OnArticlesClicked(object sender, System.EventArgs e)
+    {
+        Shell.Current.GoToAsync("//home/articles");
+    }
 }

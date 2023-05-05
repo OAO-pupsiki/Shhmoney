@@ -48,5 +48,11 @@
         <ShellSection Route="settings" Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate views:LimitsPage}" />
         </ShellSection>
+        <ShellSection Route="accounts" Title="Accounts">
+            <ShellContent ContentTemplate="{DataTemplate views:AccountsPage}" />
+        </ShellSection>
+        <ShellSection Route="articles" Title="Articles">
+            <ShellContent ContentTemplate="{DataTemplate views:ArticlesPage}" />
+        </ShellSection>
     </ShellItem>
 </Shell>

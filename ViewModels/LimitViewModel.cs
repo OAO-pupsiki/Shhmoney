@@ -16,8 +16,9 @@ namespace Shhmoney.ViewModels
     class LimitViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
+
+        public ICommand AddCommand { get; set; }
 
         private readonly LimitService _limitService;
         private readonly TransactionService _transactionService;
@@ -45,8 +46,6 @@ namespace Shhmoney.ViewModels
                 }
             });
         }
-
-        public ICommand AddCommand { get; }
 
         public ExpenseCategory SelectedCategory
         {
