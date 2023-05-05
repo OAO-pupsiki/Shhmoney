@@ -45,14 +45,15 @@ namespace Shhmoney.ViewModels
                 };
                 if (IsCard)
                 {
+                    account.PaymentType = PaymentType.Card;
                     _accountService.AddAccount(account);
                     Shell.Current.DisplayAlert("Уведомление", "Платежная карта успешно добавлена", "ОK");
                 }
                 else 
-                { 
+                {
+                    account.PaymentType = PaymentType.Cash;
                     _accountService.AddAccount(account);
                     Shell.Current.DisplayAlert("Уведомление", "Счет успешно добавлен", "ОK");
-
                 }
                 Name = null;
                 PaymentType = default(PaymentType);
