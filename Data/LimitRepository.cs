@@ -9,21 +9,31 @@ namespace Shhmoney.Data
 {
     class LimitRepository
     {       
-        private readonly DbContext _dbContext;
+        private readonly DbContext dbContext;
         public LimitRepository() 
         {
-            _dbContext = DbContext.GetDbContext();
+            dbContext = DbContext.GetDbContext();
         }
         public MounthLimit Add(MounthLimit limit)
         {
-            var dbItem = _dbContext.MounthLimits.Add(limit);
-            _dbContext.SaveChanges();
-            return dbItem.Entity;
+            var dbLimit = dbContext.MounthLimits.FirstOrDefault(c => c.ExpenseCategoryId == limit.ExpenseCategoryId);
+            if (dbLimit == null)
+            {
+                var dbItem = dbContext.MounthLimits.Add(limit);
+                dbContext.SaveChanges();
+                return dbItem.Entity;
+            }
+            else
+            {
+                dbLimit.Limit = limit.Limit;
+                dbContext.MounthLimits.Update(dbLimit);
+                dbContext.SaveChanges();
+                return dbLimit;
+            }
         }
-        public void Update(MounthLimit item)
+        public MounthLimit GetMounthLimitById(int categoryId)
         {
-            _dbContext.MounthLimits.Update(item);
-            _dbContext.SaveChanges();
+            return dbContext.MounthLimits.FirstOrDefault(c => c.ExpenseCategoryId == categoryId);
         }
 
     }

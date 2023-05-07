@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Shhmoney.Models;
 using Shhmoney.Services;
+using Shhmoney.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Shhmoney.ViewModels
 {
@@ -19,6 +21,7 @@ namespace Shhmoney.ViewModels
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
 
         public ICommand AddCommand { get; set; }
+        public ICommand SelectedIndexChangedCommand { get; set; }
 
         private readonly LimitService _limitService;
         private readonly TransactionService _transactionService;
@@ -41,12 +44,31 @@ namespace Shhmoney.ViewModels
                 {
                     _limitService.Add(SelectedCategory.Id, "BYN", Limit);
                     Shell.Current.DisplayAlert("Уведомление", "Лимит успешно добавлен", "ОK");
-                    SelectedCategory = null;
-                    Limit = 0;
                 }
             });
         }
 
+        public void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SelectedCategory == null)
+            {
+                Shell.Current.DisplayAlert("Ошибка", "Не выбрана категория", "OK");
+                return;
+            }
+
+            MounthLimit limit = _limitService.GetMounthLimitById(SelectedCategory.Id);
+
+            if (limit != null)
+            {
+                Limit = limit.Limit;
+                Shell.Current.DisplayAlert("Уведомление", $"Лимит для категории '{SelectedCategory.Name}' уже задан и равен {limit.Limit} BYN", "OK");
+            }
+            else
+            {
+                Limit = 0;
+                Shell.Current.DisplayAlert("Уведомление", $"Лимит для категории '{SelectedCategory.Name}' еще не задан", "OK");
+            }
+        }
         public ExpenseCategory SelectedCategory
         {
             get => _selectedCategory;
@@ -55,6 +77,26 @@ namespace Shhmoney.ViewModels
                 if (_selectedCategory == value)
                     return;
                 _selectedCategory = value;
+
+                if (_selectedCategory == null)
+                {
+                    Shell.Current.DisplayAlert("Ошибка", "Не выбрана категория", "OK");
+                    return;
+                }
+
+                MounthLimit limit = _limitService.GetMounthLimitById(_selectedCategory.Id);
+
+                if (limit != null)
+                {
+                    Limit = limit.Limit;
+                    Shell.Current.DisplayAlert("Уведомление", $"Лимит для категории '{_selectedCategory.Name}' уже задан и равен {limit.Limit} BYN", "OK");
+                }
+                else
+                {
+                    Limit = 0;
+                    Shell.Current.DisplayAlert("Уведомление", $"Лимит для категории '{_selectedCategory.Name}' еще не задан", "OK");
+                }
+
                 OnProperyChanged();
             }
         }

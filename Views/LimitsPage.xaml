@@ -20,12 +20,11 @@
 
                     <Picker WidthRequest="250" 
                             x:Name="CategoriesTypes" 
-                            SelectedIndexChanged="PickerSelectedIndexChanged" 
                             Title="Выберите категорию расходов" 
                             ItemsSource="{Binding Categories}"
                             ItemDisplayBinding="{Binding Name}"
                             SelectedItem="{Binding SelectedCategory}">
-                        
+
                     </Picker>
 
                     <Label Text="Введите сумму лимита на месяц" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>

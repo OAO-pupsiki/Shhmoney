@@ -34,12 +34,12 @@ namespace Shhmoney.Services
             mounthLimit.Limit = limit;
             mounthLimit.TotalLimit = totalLimit;
             _limitRepository.Update(mounthLimit);
-        }
-
-        private MounthLimit GetMounthLimitById(int id)
-        {
-            return _limitRepository.GetMounthLimitById(id);
         }*/
+
+        public MounthLimit GetMounthLimitById(int categoryId)
+        {
+            return _limitRepository.GetMounthLimitById(categoryId);
+        }
     }
 
 }
