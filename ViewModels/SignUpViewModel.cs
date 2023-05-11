@@ -1,98 +1,43 @@
 ﻿using Shhmoney.Services;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Shhmoney.ViewModels
 {
-    public class SignUpViewModel : INotifyPropertyChanged
+    public partial class SignUpViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand SignUpCommand { get; set; }
-        public ICommand LoginPageCommand { get; set; }
-
         private readonly AuthenticationService _authenticationService;
-        private string _username;
-        private string _email;
-        private string _password;
-        private string _confirmedPassword;
 
-        public SignUpViewModel()
+        public SignUpViewModel(AuthenticationService authenticationService)
         {
-            _authenticationService = new AuthenticationService();
-            SignUpCommand = new Command(() =>
-            {
-                if (/*Sign Up BL*/true)
-                {
-                    //Redirect to the login page
-                    Shell.Current.GoToAsync("//auth/login");
-                }
-                else
-                {
+            _authenticationService = authenticationService;
+        }
 
-                }
-            });
-            LoginPageCommand = new Command(() =>
+        [ObservableProperty]
+        string username;
+
+        [ObservableProperty]
+        string password;
+
+        [ObservableProperty]
+        string confirmedPassword;
+
+        [ObservableProperty]
+        string email;
+
+        [RelayCommand]
+        void SignUp()
+        {
+            if (_authenticationService.SignUp(Username, Password, Email))
             {
                 Shell.Current.GoToAsync("//auth/login");
-            });
-        }
-
-        [Required(ErrorMessage = "Please enter a username.")]
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                if (_username == value)
-                    return;
-                _username = value;
-                OnProperyChanged();
             }
         }
 
-        [Required(ErrorMessage = "Please enter a password.")]
-        public string Password
+        [RelayCommand]
+        void LoginPage()
         {
-            get => _password;
-            set
-            {
-                if (_password == value)
-                    return;
-                _password = value;
-                OnProperyChanged();
-            }
-        }
-
-        [Required(ErrorMessage = "Please confirm your password.")]
-        public string ConfirmedPassword
-        {
-            get => _confirmedPassword;
-            set
-            {
-                if (_confirmedPassword == value)
-                    return;
-                _confirmedPassword = value;
-                OnProperyChanged();
-            }
-        }
-
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                if (_email == value)
-                    return;
-                _email = value;
-                OnProperyChanged();
-            }
-        }
-
-        public void OnProperyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Shell.Current.GoToAsync("//auth/login");
         }
     }
 }

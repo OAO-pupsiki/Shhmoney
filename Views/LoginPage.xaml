@@ -14,7 +14,7 @@
                 <CheckBox IsChecked="{Binding RememberMe}" WidthRequest="20" VerticalOptions="CenterAndExpand"/>
                 <Label Text="Remember me" FontSize="14" VerticalOptions="CenterAndExpand"/>
             </StackLayout>
-            <Button HorizontalOptions="Fill" Text="Login" Margin="0,0,0,20"/>
+            <Button Command="{Binding LoginCommand}" HorizontalOptions="Fill" Text="Login" Margin="0,0,0,20"/>
         </StackLayout>
         <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
             <Label Text="Dont have an account?" FontSize="14" VerticalOptions="CenterAndExpand"/>

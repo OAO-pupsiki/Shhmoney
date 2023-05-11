@@ -7,9 +7,9 @@ namespace Shhmoney.Services
     {
         private readonly RoleRepository _roleRepository;
 
-        public AuthorizationService()
+        public AuthorizationService(RoleRepository roleRepository)
         {
-            _roleRepository = new RoleRepository();
+            _roleRepository = roleRepository;
         }
 
         public bool IsUserInRole(User user, string roleName)

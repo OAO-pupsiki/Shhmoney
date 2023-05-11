@@ -3,9 +3,22 @@ namespace Shhmoney.Views;
 
 public partial class AuthenticationPage : ContentPage
 {
-	public AuthenticationPage()
+    private readonly AuthenticationViewModel _viewModel;
+
+    public AuthenticationPage(AuthenticationViewModel viewModel)
 	{
-		InitializeComponent();
-		BindingContext = new AuthenticationViewModel();
-	}
+        _viewModel = viewModel;
+        InitializeComponent();
+        BindingContext = viewModel; 
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (_viewModel.isLoggedIn())
+        {
+            await Task.Delay(5);
+            await Shell.Current.GoToAsync("//home/main");
+        }
+    }
 }
