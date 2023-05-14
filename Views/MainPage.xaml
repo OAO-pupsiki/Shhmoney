@@ -90,37 +90,47 @@
                                            IncomeTemplate="{StaticResource IncomeTemplate}" />
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, auto"
-          Padding="5">
-        <Frame Grid.Row="0"
-               CornerRadius="15" Padding="0" >
-            <CollectionView ItemsSource="{Binding Transactions}"
-                            ItemTemplate="{StaticResource TemplateSelector}" >
-            </CollectionView>
-        </Frame>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
-            <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".8*" />
+            <ColumnDefinition Width=".2*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollView Grid.Column="0" Orientation="Vertical">
+            <Frame CornerRadius="15" Padding="0">
+                <StackLayout Padding="5">
+                    <CollectionView ItemsSource="{Binding Transactions}"
+                                ItemTemplate="{StaticResource TemplateSelector}" />
+                </StackLayout>
+            </Frame>
+        </ScrollView>
+
+        <StackLayout Grid.Column="1" BackgroundColor="LightGray" Padding="5">
             <Button Text="Главная" BackgroundColor="DimGray" />
             <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked" />
             <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
             <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
             <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked"/>
         </StackLayout>
-        </Grid>
+
 
         <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
-              VerticalOptions="End" Padding="10">
+          VerticalOptions="End" Padding="10">
             <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Total balance : {0:F2}'}"
-                   FontSize="16" FontAttributes="Bold"
-                   VerticalOptions="Center"/>
+               FontSize="16" FontAttributes="Bold"
+               VerticalOptions="CenterAndExpand"/>
             <Frame Grid.Column="1" 
-                   Padding="0" CornerRadius="100">
+               Padding="0" CornerRadius="100">
                 <Button Text="+" 
-                        VerticalOptions="Center"
-                        Command="{Binding AddTransactionCommand}"/>
+                    VerticalOptions="Center"
+                    Command="{Binding AddTransactionCommand}"/>
             </Frame>
-            
+
         </Grid>
     </Grid>
     

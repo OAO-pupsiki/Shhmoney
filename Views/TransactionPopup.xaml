@@ -2,29 +2,54 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
+               Color="SteelBlue" 
                x:Class="Shhmoney.Views.TransactionPopup"
                x:DataType="viewmodels:TransactionViewModel"
-               Size="800,800">
+               Size="550,500">
 
     <VerticalStackLayout>
-        <RadioButton Content="Income" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
-        <RadioButton Content="Expense" GroupName="TransactionType" />
-        <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding CurrentAccount}"
-                ItemDisplayBinding="{Binding Name}" >
-        </Picker>
-        <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}"
-                ItemDisplayBinding="{Binding Name}" >
-        </Picker>
-        <Entry Text="{Binding Value}"/>
-        <Entry Text="{Binding Name}"/>
-        <Entry Text="{Binding Description}"/>
 
-        <DatePicker Date="{Binding Date}"/>
-        <TimePicker Time="{Binding Time}"/>
-        <Button Text="Save" 
-                Clicked="SaveButtonClicked"/>
-        <Button Text="Cancel"
-                Clicked="CancelButtonClicked"/>
+        <Label Text="Date" FontAttributes="Bold" />
+        <StackLayout Orientation="Horizontal">
+            <DatePicker Date="{Binding Date}"/>
+        </StackLayout>
+
+        <StackLayout HorizontalOptions="Start" Margin="7">
+            <Label Text="Account" FontAttributes="Bold" />
+        <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding CurrentAccount}"
+                ItemDisplayBinding="{Binding Name}"
+                WidthRequest="250"/>
+        </StackLayout>
+
+        <Label Text="Transaction Type" FontAttributes="Bold" Margin="7" />
+        <StackLayout Orientation="Horizontal">
+            <RadioButton Content="Income" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
+            <RadioButton Content="Expense" GroupName="TransactionType" />
+        </StackLayout>
+
+        <StackLayout HorizontalOptions="Start" Margin="7">
+            <Label Text="Category" FontAttributes="Bold" />
+        <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}"
+                ItemDisplayBinding="{Binding Name}"
+                WidthRequest="250"/>
+        </StackLayout>
+
+        <Label Text="Value" FontAttributes="Bold"/>
+        <Entry Text="{Binding Value}"
+                WidthRequest="250"
+                HorizontalOptions="Start"
+                Margin="7"/>
+
+        <Label Text="Description" FontAttributes="Bold"/>
+        <Entry Text="{Binding Description}"
+                WidthRequest="250"
+                HorizontalOptions="Start"
+                Margin="7"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+            <Button Text="Save" Clicked="SaveButtonClicked" WidthRequest="80" />
+            <Button Text="Cancel" Clicked="CancelButtonClicked" WidthRequest="80"/>
+        </StackLayout>
     </VerticalStackLayout>
 
 </toolkit:Popup>
