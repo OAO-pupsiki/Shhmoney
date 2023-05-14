@@ -4,6 +4,7 @@ using Shhmoney.ViewModels;
 using Shhmoney.Services;
 using Shhmoney.Views;
 using Shhmoney.Utils;
+using CommunityToolkit.Maui;
 
 namespace Shhmoney;
 
@@ -14,7 +15,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
