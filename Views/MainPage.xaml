@@ -7,7 +7,7 @@
              x:Class="Shhmoney.Views.MainPage"
              x:DataType="viewmodels:MainViewModel"
              Title="MainPage">
-    
+
     <ContentPage.Resources>
         <DataTemplate x:Key="ExpenseTemplate" x:DataType="models:Expense">
             <Grid ColumnDefinitions="*, *, *"

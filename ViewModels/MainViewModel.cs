@@ -3,12 +3,26 @@ using CommunityToolkit.Mvvm.Input;
 using Shhmoney.Models;
 using Shhmoney.Services;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
+using Shhmoney.Views;
 
 namespace Shhmoney.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        public ObservableCollection<Transaction> Transactions { get; set; }
+        private ObservableCollection<Transaction> transactions;
+        public ObservableCollection<Transaction> Transactions 
+        { 
+            get
+            {
+                return transactions;
+            }
+            set
+            {
+                transactions = value;
+                OnPropertyChanged();
+            }
+        }
         public decimal Balance { get; set; } = 0;
 
         private readonly UserService _userService;
@@ -34,13 +48,27 @@ namespace Shhmoney.ViewModels
         public void SetTransactions()
         {
             Transactions = new ObservableCollection<Transaction>(_userService.GetUserTransactions(Utils.AppContext.CurrentUser));
+            
         }
 
         [RelayCommand]
         async void AddTransaction()
         {
-            
-            //Shell.Current.Navigation.PushModalAsync(new TransactionPage(new TransactionViewModel(_userService.GetAccounts(), _userService.GetInocmeCategories(), _userService.GetExpenseCategories())));
+            var popup = new TransactionPopup(new TransactionViewModel(_userService));
+            var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
+            if (res != null)
+            {
+                if (res is Income)
+                {
+                    _userService.AddIncome(res as Income);
+                }
+                else
+                {
+                    _userService.AddExpense(res as Expense);
+                }
+                SetTransactions();
+                SetBalance();
+            }
         }
     }
 }
