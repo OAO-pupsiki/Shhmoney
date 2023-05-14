@@ -9,7 +9,7 @@
         <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
 
             <StackLayout HorizontalOptions="Center">
-                <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
+                <StackLayout HorizontalOptions="Center" WidthRequest="250" Margin="20">
                     <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
                     <Label Text="Введите наименование новой категории" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
                     <Entry Text="{Binding Name}" Placeholder="Категория" Margin="0,0,0,10"/>

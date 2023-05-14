@@ -99,13 +99,15 @@
             </CollectionView>
         </Frame>
 
-        <StackLayout Grid.Column="2" Grid.Row="0" Padding="5, 20, 5, 0">
+        <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
+            <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
             <Button Text="Главная" BackgroundColor="DimGray" />
             <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked" />
             <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
             <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
             <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked"/>
         </StackLayout>
+        </Grid>
 
         <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
               VerticalOptions="End" Padding="10">
