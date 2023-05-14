@@ -54,85 +54,88 @@ public class CategoriesViewModel : INotifyPropertyChanged
 
         });
 
-        void Delete(ExpenseCategory expenseCategory)
-        {
-            if (Categories.Contains(expenseCategory))
-               {
-                Categories.Remove(expenseCategory);
-            }
-        }
-
-        DeleteCommand = new Command((object? category) =>
+        DeleteCommand = new Command<Category>(async (category) =>
         {
             if (category is ExpenseCategory expenseCategory)
             {
-                _transactionService.DeleteExpenseCategory(expenseCategory.Id, Utils.AppContext.CurrentUser);
-                Categories.Remove(expenseCategory);
-                Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+                bool result = await Page.DisplayAlert("Подтвердить действие", "Вы хотите удалить элемент?", "Да", "Нет");
+                if (result)
+                {
+                    _transactionService.DeleteExpenseCategory(expenseCategory.Id, Utils.AppContext.CurrentUser);
+                    Categories.Remove(expenseCategory);
+                    await Page.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+                }
             }
             else
             {
-                Shell.Current.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
+                await Page.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
             }
 
         });
 
-        DeleteIncomeCategoryCommand = new Command((object? category) =>
+        DeleteIncomeCategoryCommand = new Command<Category>(async (category) =>
         {
             if (category is IncomeCategory incomeCategory)
             {
-                _transactionService.DeleteIncomeCategory(incomeCategory.Id, Utils.AppContext.CurrentUser);
-                IncomeCategories.Remove(incomeCategory);
-                Shell.Current.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+                bool result = await Page.DisplayAlert("Подтвердить действие", "Вы хотите удалить элемент?", "Да", "Нет");
+                if (result)
+                {
+                    _transactionService.DeleteIncomeCategory(incomeCategory.Id, Utils.AppContext.CurrentUser);
+                    IncomeCategories.Remove(incomeCategory);
+                    await Page.DisplayAlert("Уведомление", "Категория успешно удалена!", "ОK");
+                }
             }
             else
             {
-                Shell.Current.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
+               await Page.DisplayAlert("Ошибка", "Невозможно удалить категорию", "ОK");
             }
 
         });
 
-        ChangeCommand = new Command((object? category) =>
+        ChangeCommand = new Command(async (object? category) =>
         {
-            //var test = Shell.Current.GetValuenewName;
             if (category is ExpenseCategory expenseCategory)
-            {             
-               _transactionService.ChangeExpenseCategory(expenseCategory.Id, NewName, string.Empty);
-                Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
+            {
+                string newName = await Shell.Current.DisplayPromptAsync("Изменить имя категории", "Введите новое имя:", "Изменить", "Отмена", expenseCategory.Name);
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    _transactionService.ChangeExpenseCategory(expenseCategory.Id, newName, string.Empty);
+                    await Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
 
-                var index = Categories.IndexOf(expenseCategory);
-                Categories.RemoveAt(index);
-                expenseCategory.Name = NewName;
+                    var index = Categories.IndexOf(expenseCategory);
+                    Categories.RemoveAt(index);
+                    expenseCategory.Name = newName;
 
-                Categories.Insert(index, expenseCategory);
-
-                NewName = string.Empty;
+                    Categories.Insert(index, expenseCategory);
+                }
             }
             else
             {
-                Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
+                await Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
             }
         });
 
-        ChangeIncomeCategoryCommand = new Command((object? category) =>
+
+        ChangeIncomeCategoryCommand = new Command(async (object? category) =>
         {
-            //var test = Shell.Current.GetValuenewName;
             if (category is IncomeCategory incomeCategory)
             {
-                _transactionService.ChangeIncomeCategory(incomeCategory.Id, NewName2, string.Empty);
-                Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
+                string newName2 = await Shell.Current.DisplayPromptAsync("Изменить имя категории", "Введите новое имя:", "Изменить", "Отмена", incomeCategory.Name);
+                if (!string.IsNullOrWhiteSpace(newName2))
+                {
+                    _transactionService.ChangeIncomeCategory(incomeCategory.Id, newName2, string.Empty);
+                    await Shell.Current.DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK");
 
-                var index = IncomeCategories.IndexOf(incomeCategory);
-                IncomeCategories.RemoveAt(index);
-                incomeCategory.Name = NewName2;
+                    var index = IncomeCategories.IndexOf(incomeCategory);
+                    IncomeCategories.RemoveAt(index);
+                    incomeCategory.Name = newName2;
 
-                IncomeCategories.Insert(index, incomeCategory);
-
-                NewName2 = string.Empty;
+                    IncomeCategories.Insert(index, incomeCategory);
+                }
             }
             else
             {
-                Shell.Current.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
+                await Page.DisplayAlert("Ошибка", "Невозможно изменить категорию", "ОK");
             }
         });
     }
@@ -151,30 +154,30 @@ public class CategoriesViewModel : INotifyPropertyChanged
         }
     }
 
-    public string NewName
-    {
-        get => _newName;
-        set
-        {
-            if (_newName == value)
-                return;
-            _newName = value;
-            OnProperyChanged();
-        }
-    }
+    //public string NewName
+    //{
+    //    get => _newName;
+    //    set
+    //    {
+    //        if (_newName == value)
+    //            return;
+    //        _newName = value;
+    //        OnProperyChanged();
+    //    }
+    //}
 
-    private string _newName2;
-    public string NewName2
-    {
-        get => _newName2;
-        set
-        {
-            if (_newName2 == value)
-                return;
-            _newName2 = value;
-            OnProperyChanged();
-        }
-    }
+    //private string _newName2;
+    //public string NewName2
+    //{
+    //    get => _newName2;
+    //    set
+    //    {
+    //        if (_newName2 == value)
+    //            return;
+    //        _newName2 = value;
+    //        OnProperyChanged();
+    //    }
+    //}
 
     private bool _isExpenses = true;
     public bool IsExpenses
@@ -185,6 +188,19 @@ public class CategoriesViewModel : INotifyPropertyChanged
             if (_isExpenses == value)
                 return;
             _isExpenses = value;
+            OnProperyChanged();
+        }
+    }
+
+    private Page _page;
+    public Page Page
+    {
+        get => _page;
+        set
+        {
+            if (_page == value)
+                return;
+            _page = value;
             OnProperyChanged();
         }
     }

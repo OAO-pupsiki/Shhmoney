@@ -83,13 +83,6 @@
                                             <SwipeItem Text="Изменить" BackgroundColor="Green" 
                                        Command="{Binding Path=BindingContext.ChangeCommand, Source={x:Reference Name=expensecategoriesListView}}"
                                        CommandParameter="{Binding .}" />
-                                            <!--<SwipeItem.View>
-                                                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                                                    <Entry x:Name="newCategoryNameEntry" Placeholder="Новое название"/>
-                                                    <Button Text="Изменить" Command="{Binding Path=BindingContext.ChangeCategoryNameCommand, Source={x:Reference Name=expensecategoriesListView}}"
-                                                                            CommandParameter="{Binding .}"/>
-                                                </StackLayout>
-                                            </SwipeItem.View>-->
                                         </SwipeItems>
                                     </SwipeView.RightItems>
                                     <StackLayout>
@@ -113,6 +106,9 @@
                                             <SwipeItem Text="Удалить" BackgroundColor="Red" 
                                        Command="{Binding Path=BindingContext.DeleteIncomeCategoryCommand, Source={x:Reference Name=incomecategoriesListView}}"
                                        CommandParameter="{Binding .}" />
+                                            <SwipeItem Text="Изменить" BackgroundColor="Green" 
+                                       Command="{Binding Path=BindingContext.ChangeIncomeCategoryCommand, Source={x:Reference Name=incomecategoriesListView}}"
+                                       CommandParameter="{Binding .}" />
                                         </SwipeItems>
                                     </SwipeView.RightItems>
                                     <StackLayout>
@@ -145,39 +141,6 @@
                     </ListView.ItemTemplate>
                 </ListView>-->
 
-
-
-                <!--<ListView x:Name="expensecategoriesListView" ItemsSource="{Binding Categories}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <SwipeView>
-                                    <SwipeView.RightItems>
-                                        <SwipeItems>
-                                            <SwipeItem Text="Изменить" BackgroundColor="Green" 
-                                       Command="{Binding Path=BindingContext.ChangeCommand, Source={x:Reference Name=expensecategoriesListView}}"
-                                       CommandParameter="{Binding .}">
-                                                <SwipeItem.View>
-                                                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                                                        <Label Text="Изменить" HorizontalOptions="EndAndExpand" TextColor="White" FontSize="Medium" Margin="0,0,20,0"/>
-                                                    </StackLayout>
-                                                </SwipeItem.View>
-                                            </SwipeItem>
-                                        </SwipeItems>
-                                    </SwipeView.RightItems>
-                                    <StackLayout>
-                                        <Label Text="{Binding Name}" />
-                                    </StackLayout>
-                                </SwipeView>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
-
-
-
-
-
                 <!--<Button Text="Удалить категорию расходов" WidthRequest="400" HorizontalOptions="Start"
                 Command="{Binding DeleteCommand}"
                 CommandParameter="{Binding Source={x:Reference Name=expensecategoriesListView}, Path=SelectedItem}"  />-->
@@ -194,11 +157,11 @@
                         Command="{Binding ChangeCommand}" 
                         CommandParameter="{Binding Source={x:Reference Name=expensecategoriesListView}, Path=SelectedItem}"  />-->
 
-                <Label Text="Введите наименование категории доходов, которую хотите изменить" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,20,20"/>
+                <!--<Label Text="Введите наименование категории доходов, которую хотите изменить" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,20,20"/>
                 <Entry x:Name="newName2" Text="{Binding NewName2}" Placeholder="Категория" Margin="0,0,0,20"/>
                 <Button Text="Изменить категорию доходов" WidthRequest="400" HorizontalOptions="Start"
                         Command="{Binding ChangeIncomeCategoryCommand}" 
-                        CommandParameter="{Binding Source={x:Reference Name=incomecategoriesListView}, Path=SelectedItem}"  />
+                        CommandParameter="{Binding Source={x:Reference Name=incomecategoriesListView}, Path=SelectedItem}"  />-->
 
             </StackLayout>
 

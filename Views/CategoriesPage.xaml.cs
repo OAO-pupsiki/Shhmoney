@@ -7,6 +7,7 @@ public partial class CategoriesPage : ContentPage
 	{
 		InitializeComponent();
         BindingContext = categoriesViewModel;
+        categoriesViewModel.Page = this;
 
     }
     private void OnMainClicked(object sender, System.EventArgs e)
