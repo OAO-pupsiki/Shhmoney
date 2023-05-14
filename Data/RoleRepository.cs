@@ -7,9 +7,9 @@ namespace Shhmoney.Data
     {
         private readonly DbContext _dbContext;
 
-        public RoleRepository()
+        public RoleRepository(DbContext dbContext)
         {
-            _dbContext = DbContext.GetDbContext();
+            _dbContext = dbContext;
         }
 
         public void AddRole(Role role)

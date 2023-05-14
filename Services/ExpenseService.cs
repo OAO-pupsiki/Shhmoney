@@ -1,10 +1,5 @@
 ﻿using Shhmoney.Data;
 using Shhmoney.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shhmoney.Services
 {
@@ -12,9 +7,9 @@ namespace Shhmoney.Services
     {
         private readonly ExpenseRepository _expenseRepository;
 
-        public ExpenseService()
+        public ExpenseService(ExpenseRepository expenseRepository)
         {
-            _expenseRepository = new ExpenseRepository();
+            _expenseRepository = expenseRepository;
         }
 
         public void AddExpense(Expense expense)
@@ -24,12 +19,7 @@ namespace Shhmoney.Services
 
         public void DelExpenseByCategory(Category category)
         {
-            int userId = 1; // здесь должен браться id текущего пользователя
-            var lstExp = _expenseRepository.GetExpensesByCategory(category);
-            foreach (var exp in lstExp.Where(exp => exp.Account.UserId == userId))
-            {
-                _expenseRepository.DeleteExpense(exp.Account.UserId);
-            }
+             _expenseRepository.DeleteExpenseByUserId(category.UserId);
         }
 
         public List<Expense> ViewExpenseFromCategory(Category category)
@@ -41,7 +31,5 @@ namespace Shhmoney.Services
         {
 
         }
-
-
     }
 }

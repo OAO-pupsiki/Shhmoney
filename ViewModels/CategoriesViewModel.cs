@@ -25,9 +25,9 @@ public class CategoriesViewModel : INotifyPropertyChanged
     private string _name;
     private string _newName;
        
-    public CategoriesViewModel()
+    public CategoriesViewModel(TransactionService transactionService)
     {
-        _transactionService = new TransactionService();
+        _transactionService = transactionService;
         Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
         IncomeCategories = new ObservableCollection<IncomeCategory>(_transactionService.GetIncomeCategoriesByUser(Utils.AppContext.CurrentUser));
 

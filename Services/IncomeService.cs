@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shhmoney.Data;
+﻿using Shhmoney.Data;
 using Shhmoney.Models;
 
 namespace Shhmoney.Services
@@ -12,9 +7,9 @@ namespace Shhmoney.Services
     {
         private readonly IncomeRepository _incomeRepository;
 
-        public IncomeService()
+        public IncomeService(IncomeRepository incomeRepository)
         {
-            _incomeRepository = new IncomeRepository();
+            _incomeRepository = incomeRepository;
         }
 
         public void AddIncome(Income income)
@@ -24,12 +19,7 @@ namespace Shhmoney.Services
 
         public void DelIncomeByCategory(Category category)
         {
-            int userId = 1; // здесь должен браться id текущего пользователя
-            var lstExp = _incomeRepository.GetIncomesByCategory(category);
-            foreach (var exp in lstExp.Where(exp => exp.Account.UserId == userId))
-            {
-                _incomeRepository.DeleteIncome(exp.Account.UserId);
-            }
+             _incomeRepository.DeleteIncomeByUserId(category.UserId);
         }
 
         public List<Income> ViewIncomeFromCategory(Category category)

@@ -1,17 +1,13 @@
-﻿namespace Shhmoney;
+using Shhmoney.ViewModels;
+namespace Shhmoney.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MainViewModel mainViewModel)
 	{
 		InitializeComponent();
-        MoneyTypes.SelectedIndex = 0;
-    }
-
-    void PickerSelectedIndexChanged(object sender, EventArgs e)
-    {
-        //DisplayAlert("Вид денежных средств", $"Вы выбрали: {MoneyTypes.SelectedItem}", "Oк");
-    }
+		BindingContext = mainViewModel;
+	}
     private void OnCategoriesClicked(object sender, System.EventArgs e)
     {
         Shell.Current.GoToAsync("//home/categories");
@@ -28,5 +24,4 @@ public partial class MainPage : ContentPage
     {
         Shell.Current.GoToAsync("//home/articles");
     }
-
 }

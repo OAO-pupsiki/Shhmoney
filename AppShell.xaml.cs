@@ -5,10 +5,9 @@ namespace Shhmoney;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
+	public AppShell(CurrencyExchangeRate currencyExchangeRate)
 	{
 		InitializeComponent();
-		var a = new CurrencyExchangeRate();
-		a.LoadCurrencies();
+        currencyExchangeRate.LoadCurrencies();
 	} 
 }

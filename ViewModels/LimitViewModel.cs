@@ -15,7 +15,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Shhmoney.ViewModels
 {
-    class LimitViewModel : INotifyPropertyChanged
+    public class LimitViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
@@ -28,10 +28,10 @@ namespace Shhmoney.ViewModels
         private ExpenseCategory _selectedCategory;
         private int _limit;
 
-        public LimitViewModel()
+        public LimitViewModel(LimitService limitService, TransactionService transactionService)
         {
-            _limitService = new LimitService();
-            _transactionService = new TransactionService();
+            _limitService = limitService;
+            _transactionService = transactionService;
             Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
 
             AddCommand = new Command(() =>

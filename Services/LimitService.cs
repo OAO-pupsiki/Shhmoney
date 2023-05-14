@@ -10,11 +10,11 @@ namespace Shhmoney.Services
 {
     public class LimitService
     {
-        private readonly LimitRepository _limitRepository;
+        private LimitRepository _limitRepository;
 
-        public LimitService()
+        public LimitService(LimitRepository limitRepository)
         {
-            _limitRepository = new LimitRepository();
+            _limitRepository = limitRepository;
         }
         public MounthLimit Add(int categoryId, string currency, int limit)
         {

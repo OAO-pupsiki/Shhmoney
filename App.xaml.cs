@@ -1,10 +1,12 @@
-﻿namespace Shhmoney;
+﻿using Shhmoney.Utils;
+
+namespace Shhmoney;
 
 public partial class App : Application
 {
-	public App()
+	public App(CurrencyExchangeRate currencyExchangeRate)
 	{
 		InitializeComponent();
-		MainPage = new AppShell();
+		MainPage = new AppShell(currencyExchangeRate);
 	}
 }

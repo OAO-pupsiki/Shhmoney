@@ -1,29 +1,24 @@
-using Shhmoney.Services;
 using Shhmoney.ViewModels;
 namespace Shhmoney.Views;
 
 public partial class AuthenticationPage : ContentPage
 {
-	public AuthenticationPage()
-	{
-		InitializeComponent();
-		BindingContext = new AuthenticationViewModel();
-	}
+    private readonly AuthenticationViewModel _viewModel;
 
-	protected override async void OnAppearing()
+    public AuthenticationPage(AuthenticationViewModel viewModel)
 	{
-		base.OnAppearing();
-
-        if (IsUserAuthenticated())
-        {
-			await Task.Delay(100);
-            await Shell.Current.GoToAsync("//home/main");
-        }
+        _viewModel = viewModel;
+        InitializeComponent();
+        BindingContext = viewModel; 
     }
 
-	private bool IsUserAuthenticated()
-	{
-		var authService = new AuthenticationService();
-		return authService.TryAutoLogin();
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (_viewModel.isLoggedIn())
+        {
+            await Task.Delay(5);
+            await Shell.Current.GoToAsync("//home/main");
+        }
     }
 }

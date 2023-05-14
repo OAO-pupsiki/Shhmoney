@@ -3,10 +3,10 @@ namespace Shhmoney.Views;
 
 public partial class LimitsPage : ContentPage
 {
-    public LimitsPage()
+    public LimitsPage(LimitViewModel limitViewModel)
     {
         InitializeComponent();
-        BindingContext = new LimitViewModel();
+        BindingContext = limitViewModel;
         CurrencyTypes.SelectedIndex = 0;
     }
     void PickerSelectedIndexChanged(object sender, EventArgs e)

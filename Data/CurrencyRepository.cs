@@ -6,9 +6,9 @@ namespace Shhmoney.Data
     {
         private readonly DbContext _dbContext;
 
-        public CurrencyRepository()
+        public CurrencyRepository(DbContext dbContext)
         {
-            _dbContext = DbContext.GetDbContext();
+            _dbContext = dbContext;
         }
 
         public void AddCurrency(Currency currency)

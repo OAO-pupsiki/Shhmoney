@@ -9,10 +9,10 @@ namespace Shhmoney.Services
         private readonly IncomeCategoryRepository _incomeCategoryRepository;
         private readonly ExpenseCategoryRepository _expenseCategoryRepository;
 
-        public TransactionService()
+        public TransactionService(IncomeCategoryRepository incomeCategoryRepository, ExpenseCategoryRepository expenseCategoryRepository)
         {
-            _incomeCategoryRepository = new IncomeCategoryRepository();
-            _expenseCategoryRepository = new ExpenseCategoryRepository();
+            _incomeCategoryRepository = incomeCategoryRepository;
+            _expenseCategoryRepository = expenseCategoryRepository;
         }
 
         public List<IncomeCategory> GetIncomeCategoriesByUser(User user)

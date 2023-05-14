@@ -4,10 +4,9 @@ namespace Shhmoney.Models
 {
     public class Account
     {
-        private decimal balance;
-
         public int Id { get; set; }
         public string Name { get; set; }
+        public decimal Balance { get; set; }
         [EnumDataType(typeof(PaymentType))]
         public PaymentType PaymentType { get; set; }
         public List<Income> Incomes { get; set; }

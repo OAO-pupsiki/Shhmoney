@@ -11,11 +11,11 @@ namespace Shhmoney.Services
         private readonly RoleRepository _roleRepository;
         private readonly UserSessionRepository _userSessionRepository;
 
-        public AuthenticationService()
+        public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository, UserSessionRepository userSessionRepository)
         {
-            _userRepository = new UserRepository();
-            _roleRepository = new RoleRepository();
-            _userSessionRepository = new UserSessionRepository();
+            _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _userSessionRepository = userSessionRepository;
         }
 
         public void Login(string username, string password, bool rememberMe)
@@ -35,7 +35,16 @@ namespace Shhmoney.Services
                 var session = _userSessionRepository.GetSessionByUser(user);
 
                 if (session == null)
-                    throw new Exception("Unable to load user session");
+                {
+                    var token = GenerateToken();
+                    session = new UserSession
+                    {
+                        Token = token,
+                        Expiration = DateTime.UtcNow.AddDays(30),
+                        User = user
+                    };
+                    _userSessionRepository.AddSession(session);
+                }
 
                 _userSessionRepository.UpdateSession(session);
                 SaveTokenToFile(session.Token);
@@ -50,21 +59,23 @@ namespace Shhmoney.Services
 
         public bool TryAutoLogin()
         {
-            string path = @"C:\ProgramData\Shhmoney\data.bin";
+            string token;
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, "data.bin");
+            if (!File.Exists(filePath)) return false;
+            using (var reader = new StreamReader(filePath))
+            {
+                token = reader.ReadToEnd();
+            }
 
-            if(!File.Exists(path))
-                return false;
-
-            byte[] bytes = File.ReadAllBytes(path);
-            string token = Convert.ToBase64String(bytes);
             var session = _userSessionRepository.GetSessionByToken(token);
 
             if (session == null)
-                throw new Exception("Unable to load user session");
+                return false;
 
             if (session.Expiration > DateTime.UtcNow)
             {
-                var user = session.User;
+
+                var user = _userRepository.GetUserById(session.UserId);
                 Utils.AppContext.CurrentUser = user;
                 return true;
             }
@@ -119,15 +130,12 @@ namespace Shhmoney.Services
             return Convert.ToBase64String(bytes);
         }
 
-        private void SaveTokenToFile(string token)
+        private async void SaveTokenToFile(string token)
         {
-            string path = @"C:\ProgramData\Shhmoney";
-            Directory.CreateDirectory(path);
-            byte[] bytes = Convert.FromBase64String(token);
-
-            using (var fstream = new FileStream(path + @"\data.bin", FileMode.OpenOrCreate))
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, "data.bin");
+            using (var writer = new StreamWriter(filePath))
             {
-                fstream.Write(bytes, 0, bytes.Length);
+                await writer.WriteAsync(token);
             }
         }
     }

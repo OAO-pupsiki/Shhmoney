@@ -6,9 +6,9 @@ namespace Shhmoney.Data
     {
         private readonly DbContext _dbContext;
 
-        public ExpenseCategoryRepository()
+        public ExpenseCategoryRepository(DbContext dbContext)
         {
-            _dbContext = DbContext.GetDbContext();
+            _dbContext = dbContext;
         }
 
         public ExpenseCategory AddExpenseCategory(ExpenseCategory expenseCategory)

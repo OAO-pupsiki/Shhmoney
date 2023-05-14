@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Shhmoney.Data;
 using Shhmoney.Models;
 
 namespace Shhmoney.Services
 {
-    class AccountService
+    public class AccountService
     {
         private readonly AccountRepository _accountRepository;
 
-        public AccountService()
+        public AccountService(AccountRepository accountRepository)
         {
-            _accountRepository = new AccountRepository();
+            _accountRepository = accountRepository;
         }
         public Account AddAccount(Account account)
         {

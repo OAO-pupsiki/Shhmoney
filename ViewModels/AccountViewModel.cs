@@ -13,7 +13,7 @@ using Shhmoney.Services;
 
 namespace Shhmoney.ViewModels
 {
-    class AccountViewModel : INotifyPropertyChanged
+    public class AccountViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<Currency> Currencies { get; set; }
@@ -27,9 +27,9 @@ namespace Shhmoney.ViewModels
        // private Currency _selectedCurrency;
         private decimal _balance;
 
-        public AccountViewModel()
+        public AccountViewModel(AccountService accountService)
         {
-            _accountService = new AccountService();
+            _accountService = accountService;
             //_currencyService = new CurrencyService();
            // Currencies = new ObservableCollection<Currency>(_currencyService.GetAllCurrencies());
 

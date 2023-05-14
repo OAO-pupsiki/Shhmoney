@@ -9,15 +9,19 @@ namespace Shhmoney
 {
     internal class ChangeUser
     {
-        public static void ChangeUserById(string Username, string Email, string Password)
+        private UserRepository _userRepository { get; set; }
+        public ChangeUser(UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+        public void ChangeUserById(string Username, string Email, string Password)
         {
             int id = 1; //Здесь должен браться id текущего пользователя (метод егора)
-            UserRepository UserRep = new UserRepository();
-            var user = UserRep.GetUserById(id);
+            var user = _userRepository.GetUserById(id);
             user.Username = Username;
             user.Email = Email; 
             user.Password = Password;
-            UserRep.SaveChanges();
+            _userRepository.SaveChanges();
         }
     }
     
@@ -28,17 +32,21 @@ namespace Shhmoney
     }
     internal class ChangeAdmin
     {
-        public static void ChangeAdminById(string Email, DateTime Expiration, UserStatus Status)
+        private UserRepository _userRepository { get; set; }
+        private UserSessionRepository _userSessionRepository { get; set; }
+        public ChangeAdmin (UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+        public void ChangeAdminById(string Email, DateTime Expiration, UserStatus Status)
         {
             int id = 1; //Здесь должен браться id admin
-            UserRepository UserRep = new UserRepository();
-            var User = UserRep.GetUserByEmail(Email);
-            var UserSessionRep = new UserSessionRepository();
-            var UserSession = UserSessionRep.GetSessionByUserId(User.Id);
+            var User = _userRepository.GetUserByEmail(Email);
+            var UserSession = _userSessionRepository.GetSessionByUserId(User.Id);
             UserSession.Expiration = Expiration;
             // как мы храним статус?
             // изменить статус
-            UserRep.SaveChanges();
+            _userRepository.SaveChanges();
         }
     }
 }

@@ -3,10 +3,10 @@ namespace Shhmoney.Views;
 
 public partial class AccountsPage : ContentPage
 {
-	public AccountsPage()
+	public AccountsPage(AccountViewModel accountViewModel)
 	{
 		InitializeComponent();
-        BindingContext = new AccountViewModel();
+        BindingContext = accountViewModel;
     }
     private void OnMainClicked(object sender, System.EventArgs e)
     {

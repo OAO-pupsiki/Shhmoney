@@ -7,12 +7,12 @@ using Shhmoney.Models;
 
 namespace Shhmoney.Data
 {
-    class LimitRepository
+    public class LimitRepository
     {       
         private readonly DbContext dbContext;
-        public LimitRepository() 
+        public LimitRepository(DbContext dbContext) 
         {
-            dbContext = DbContext.GetDbContext();
+            this.dbContext = dbContext;
         }
         public MounthLimit Add(MounthLimit limit)
         {

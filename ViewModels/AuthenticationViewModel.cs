@@ -1,31 +1,27 @@
 ﻿using Shhmoney.Services;
-using System.ComponentModel;
-using System.Windows.Input;
-using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Shhmoney.ViewModels
 {
-    public class AuthenticationViewModel : INotifyPropertyChanged
+    public partial class AuthenticationViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand LoginPageCommand { get; set; }
-        public ICommand SignUpPageCommand { get; set; }
-        public ICommand CategoriesPageCommand { get; set; }
+        private readonly AuthenticationService _authenticationService;
 
-        public AuthenticationViewModel() 
+        public AuthenticationViewModel(AuthenticationService authenticationService) 
         {
-            LoginPageCommand = new Command(() =>
-            {
-                Shell.Current.GoToAsync("//auth/login");
-            });
-            SignUpPageCommand = new Command(() =>
-            {
-                Shell.Current.GoToAsync("//auth/signup");
-            });
-            CategoriesPageCommand = new Command(() =>
-            {
-                Shell.Current.GoToAsync("//home/categories");
-            });
+            _authenticationService = authenticationService;
+        }
+
+        [RelayCommand]
+        void LoginPage() => Shell.Current.GoToAsync("//auth/login");
+
+        [RelayCommand]
+        void SignUpPage() => Shell.Current.GoToAsync("//auth/signup");
+
+        public bool isLoggedIn()
+        {
+            return _authenticationService.TryAutoLogin();
         }
     }
 }

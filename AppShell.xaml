@@ -40,7 +40,7 @@
     </ShellItem>
     <ShellItem Route="home" Title="Home">
         <ShellSection Route="main" Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
         </ShellSection>
         <ShellSection Route="categories" Title="Categories">
             <ShellContent ContentTemplate="{DataTemplate views:CategoriesPage}" />

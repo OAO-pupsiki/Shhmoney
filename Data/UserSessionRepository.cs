@@ -6,9 +6,9 @@ namespace Shhmoney.Data
     {
         private readonly DbContext _dbContext;
 
-        public UserSessionRepository()
+        public UserSessionRepository(DbContext dbContext)
         {
-            _dbContext = DbContext.GetDbContext();
+            _dbContext = dbContext;
         }
 
         public void AddSession(UserSession session)

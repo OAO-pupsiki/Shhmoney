@@ -9,9 +9,9 @@ namespace Shhmoney.Utils
     {
         private readonly CurrencyRepository _currencyRepository;
 
-        public CurrencyExchangeRate()
+        public CurrencyExchangeRate(CurrencyRepository currencyRepository)
         {
-            _currencyRepository = new CurrencyRepository();
+            _currencyRepository = currencyRepository;
         }
 
         public async Task<string> GetApiResponse()
