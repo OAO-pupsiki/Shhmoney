@@ -3,11 +3,15 @@ namespace Shhmoney.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(MainViewModel mainViewModel)
+    public MainViewModel _mainViewModel { get; set; }
+
+    public MainPage(MainViewModel mainViewModel)
 	{
 		InitializeComponent();
 		BindingContext = mainViewModel;
-	}
+        _mainViewModel = mainViewModel; 
+
+    }
     private void OnCategoriesClicked(object sender, System.EventArgs e)
     {
         Shell.Current.GoToAsync("//home/categories");
@@ -23,5 +27,10 @@ public partial class MainPage : ContentPage
     private void OnArticlesClicked(object sender, System.EventArgs e)
     {
         Shell.Current.GoToAsync("//home/articles");
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _mainViewModel.UpdateList();
     }
 }

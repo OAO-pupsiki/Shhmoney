@@ -3,7 +3,7 @@ namespace Shhmoney.Views;
 
 public partial class AccountsPage : ContentPage
 {
-	public AccountsPage(AccountViewModel accountViewModel)
+    public AccountsPage(AccountViewModel accountViewModel)
 	{
 		InitializeComponent();
         BindingContext = accountViewModel;

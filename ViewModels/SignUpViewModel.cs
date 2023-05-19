@@ -39,5 +39,7 @@ namespace Shhmoney.ViewModels
         {
             Shell.Current.GoToAsync("//auth/login");
         }
+
+
     }
 }

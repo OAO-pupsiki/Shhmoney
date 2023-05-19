@@ -51,10 +51,16 @@ namespace Shhmoney.Services
             }
          }
 
-        public void LogOut(User user)
+        public void LogOut()
         {
-            var session = _userSessionRepository.GetSessionByUser(user);
-            session.Expiration = DateTime.UtcNow;
+            var session = _userSessionRepository.GetSessionByUser(Utils.AppContext.CurrentUser);
+            //session.Expiration = DateTime.UtcNow;
+            if (session != null)
+            {
+                _userSessionRepository.RemoveSessionByToken(session.Token);
+                var filePath = Path.Combine(FileSystem.AppDataDirectory, "data.bin");
+                File.Delete(filePath);
+            }
         }
 
         public bool TryAutoLogin()

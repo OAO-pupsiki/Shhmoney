@@ -16,22 +16,25 @@ namespace Shhmoney.ViewModels
     public class AccountViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Currency> Currencies { get; set; }
 
         public ICommand AddAccountCommand { get; set; }
 
         private readonly AccountService _accountService;
+
         //private readonly CurrencyService _currencyService;
         private string _name;
         private PaymentType _paymentType;
        // private Currency _selectedCurrency;
-        private decimal _balance;
 
         public AccountViewModel(AccountService accountService)
         {
             _accountService = accountService;
+            Accounts = new ObservableCollection<Account>();
             //_currencyService = new CurrencyService();
-           // Currencies = new ObservableCollection<Currency>(_currencyService.GetAllCurrencies());
+            // Currencies = new ObservableCollection<Currency>(_currencyService.GetAllCurrencies());
 
             AddAccountCommand = new Command(() =>
             {
@@ -59,7 +62,7 @@ namespace Shhmoney.ViewModels
                 PaymentType = default(PaymentType);
                 //SelectedCurrency = null;
             });
-        }
+        }      
 
         public string Name
         {

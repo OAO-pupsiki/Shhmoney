@@ -3,10 +3,12 @@ namespace Shhmoney.Views;
 
 public partial class LimitsPage : ContentPage
 {
+    public LimitViewModel _limitViewModel { get; set; }
     public LimitsPage(LimitViewModel limitViewModel)
     {
         InitializeComponent();
         BindingContext = limitViewModel;
+        _limitViewModel = limitViewModel;
         CurrencyTypes.SelectedIndex = 0;
     }
     void PickerSelectedIndexChanged(object sender, EventArgs e)
@@ -29,4 +31,10 @@ public partial class LimitsPage : ContentPage
     {
         Shell.Current.GoToAsync("//home/articles");
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _limitViewModel.UpdateList();
+    }
+
 }

@@ -40,5 +40,10 @@ namespace Shhmoney.Data
         {
             return _dbContext.Users.FirstOrDefault(u => u.Email == email);
         }
+        public void UpdateUser(User user)
+        {
+            _dbContext.Users.Update(user);
+            _dbContext.SaveChanges();
+        }
     }
 }

@@ -28,6 +28,10 @@ namespace Shhmoney.Services
         {
             return _accountRepository.GetAccountById(id);
         }
+        public List<Account> GetAccountsByUser(User user)
+        {
+            return _accountRepository.GetAccountsByUser(user.Id);
+        }
 
         public List<Account> GetAllAccounts()
         {

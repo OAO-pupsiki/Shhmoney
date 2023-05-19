@@ -10,6 +10,14 @@ namespace Shhmoney.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        public ObservableCollection<ExpenseCategory> Categories { get; set; }
+        public ObservableCollection<IncomeCategory> IncomeCategories { get; set; }
+        private readonly TransactionService _transactionService;
+        public ObservableCollection<Account> Accounts { get; set; }
+        private readonly AccountService _accountService;
+
+
+
         private ObservableCollection<Transaction> transactions;
         public ObservableCollection<Transaction> Transactions 
         { 
@@ -68,6 +76,37 @@ namespace Shhmoney.ViewModels
                 }
                 SetTransactions();
                 SetBalance();
+            }
+        }
+        public void UpdateList()
+        {
+            if (Categories != null && IncomeCategories != null)
+            {
+                // Логика обновления коллекции Categories
+                Categories.Clear();
+                var updatedExpenseCategories = _transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser);
+                foreach (var expenseCategory in updatedExpenseCategories)
+                {
+                    Categories.Add(expenseCategory);
+                }
+
+                // Логика обновления коллекции IncomeCategories
+                IncomeCategories.Clear();
+                var updatedIncomeCategories = _transactionService.GetIncomeCategoriesByUser(Utils.AppContext.CurrentUser);
+                foreach (var incomeCategory in updatedIncomeCategories)
+                {
+                    IncomeCategories.Add(incomeCategory);
+                }
+            }
+            if (Accounts != null)
+            {
+                // Логика обновления коллекции счетов
+                Accounts.Clear();
+                var updatedAccounts = _accountService.GetAccountsByUser(Utils.AppContext.CurrentUser);
+                foreach (var account in updatedAccounts)
+                {
+                    Accounts.Add(account);
+                }
             }
         }
     }

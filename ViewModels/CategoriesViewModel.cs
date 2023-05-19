@@ -140,7 +140,6 @@ public class CategoriesViewModel : INotifyPropertyChanged
         });
     }
 
-   
     [Required(ErrorMessage = "Пожалуйста введите наименование новой категории.")]
     public string Name
     {
@@ -153,31 +152,6 @@ public class CategoriesViewModel : INotifyPropertyChanged
             OnProperyChanged();
         }
     }
-
-    //public string NewName
-    //{
-    //    get => _newName;
-    //    set
-    //    {
-    //        if (_newName == value)
-    //            return;
-    //        _newName = value;
-    //        OnProperyChanged();
-    //    }
-    //}
-
-    //private string _newName2;
-    //public string NewName2
-    //{
-    //    get => _newName2;
-    //    set
-    //    {
-    //        if (_newName2 == value)
-    //            return;
-    //        _newName2 = value;
-    //        OnProperyChanged();
-    //    }
-    //}
 
     private bool _isExpenses = true;
     public bool IsExpenses

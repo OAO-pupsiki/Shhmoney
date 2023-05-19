@@ -7,7 +7,7 @@ using Shhmoney.Data;
 
 namespace Shhmoney
 {
-    internal class ChangeUser
+    public class ChangeUser
     {
         private UserRepository _userRepository { get; set; }
         public ChangeUser(UserRepository userRepository)

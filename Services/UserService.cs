@@ -89,5 +89,13 @@ namespace Shhmoney.Services
         {
             return _expenseCategoryRepository.GetExpenseCategoriesByUserId(Utils.AppContext.CurrentUser.Id);
         }
+        public void ChangeUser(User user)
+        {
+            var existingUser = _userRepository.GetUserById(user.Id);
+            existingUser.Password = user.Password;
+            existingUser.Email = user.Email;
+            _userRepository.UpdateUser(existingUser);
+        }
     }
 }
+

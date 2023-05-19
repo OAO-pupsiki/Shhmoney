@@ -101,6 +101,19 @@ namespace Shhmoney.ViewModels
             }
         }
 
+        
+        public void UpdateList()
+        {
+            // Логика обновления коллекции Categories
+            Categories.Clear();
+            var updatedExpenseCategories = _transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser);
+            foreach (var expenseCategory in updatedExpenseCategories)
+            {
+                Categories.Add(expenseCategory);
+            }
+        }
+    
+
         public int Limit
         {
             get => _limit;

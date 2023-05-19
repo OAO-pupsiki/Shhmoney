@@ -122,7 +122,24 @@ namespace Shhmoney.Data
             };
             Expenses.Add(expense);
             SaveChanges();*/
-            
+
+            /*var user = User.FirstOrDefault(c => c.Password == "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c");
+            if (user!= null)
+            {
+                user = new User { Id = 1, Password = "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",  };
+                var dbItem = ExpenseCategories.Add(user);
+                this.SaveChanges();
+            }
+
+
+            var expenseCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Продукты");
+            if (expenseCategory != null)
+            {
+                expenseCategory = new ExpenseCategory { Description = "Еда123", Name = "Продукты", UserId = 1, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }*/
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
