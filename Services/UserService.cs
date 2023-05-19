@@ -3,6 +3,7 @@ using Shhmoney.Data;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Linq;
+using Shhmoney.Utils;
 
 namespace Shhmoney.Services
 {
@@ -89,11 +90,11 @@ namespace Shhmoney.Services
         {
             return _expenseCategoryRepository.GetExpenseCategoriesByUserId(Utils.AppContext.CurrentUser.Id);
         }
-        public void ChangeUser(User user)
+        public void ChangeUser(string password)
         {
-            var existingUser = _userRepository.GetUserById(user.Id);
-            existingUser.Password = user.Password;
-            existingUser.Email = user.Email;
+            var existingUser = _userRepository.GetUserById(Utils.AppContext.CurrentUser.Id);
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            existingUser.Password = hashedPassword;
             _userRepository.UpdateUser(existingUser);
         }
     }

@@ -60,7 +60,7 @@ namespace Shhmoney.ViewModels
         }
 
         [RelayCommand]
-        async void AddTransaction()
+        public async void AddTransaction()
         {
             var popup = new TransactionPopup(new TransactionViewModel(_userService));
             var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
@@ -77,6 +77,22 @@ namespace Shhmoney.ViewModels
                 SetTransactions();
                 SetBalance();
             }
+        }
+
+        [RelayCommand]
+        public void RemoveTransaction(Transaction transaction)
+        {
+            if (transaction is Income)
+            {
+                _userService.RemoveIncome(transaction as Income);
+            }
+            else if (transaction is Expense)
+            {
+                _userService.RemoveExpense(transaction as Expense);
+            }
+
+            SetTransactions();
+            SetBalance();
         }
         public void UpdateList()
         {

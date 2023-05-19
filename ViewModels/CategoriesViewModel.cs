@@ -23,7 +23,6 @@ public class CategoriesViewModel : INotifyPropertyChanged
 
     private readonly TransactionService _transactionService;
     private string _name;
-    private string _newName;
        
     public CategoriesViewModel(TransactionService transactionService)
     {

@@ -15,6 +15,7 @@ namespace Shhmoney.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly UserService _userService;
+        private string _newName;
         public UserViewModel(UserService userService)
         {
             _userService = userService;
@@ -28,29 +29,38 @@ namespace Shhmoney.ViewModels
                 Role = Utils.AppContext.CurrentUser.Role,
                 Accounts = Utils.AppContext.CurrentUser.Accounts
             };
-            ChangeUserCommand = new Command(ChangeUser);
             SaveChangesCommand = new Command(SaveChanges);
-
         }
 
         public User User { get; set; }
-
-        public string NewPassword { get; set; }
-        public string NewEmail { get; set; }
-
-        public ICommand ChangeUserCommand { get; set; }
         public ICommand SaveChangesCommand { get; set; }
 
+        private async void SaveChanges()
+        {
+            bool result = await Shell.Current.DisplayAlert("Подтвердить действие", "Вы хотите изменить пароль?", "Да", "Нет");
 
-        private void ChangeUser()
-        {
-            Utils.AppContext.CurrentUser.Password = NewPassword;
-            Utils.AppContext.CurrentUser.Email = NewEmail;
-            _userService.ChangeUser(Utils.AppContext.CurrentUser);
+            if (result)
+            {
+                _userService.ChangeUser(NewPassword);
+                await Shell.Current.DisplayAlert("Уведомление", "Пароль успешно сохранен. Используйте его при следующей авторизации.", "ОК");
+                NewPassword = string.Empty;
+            }
+
         }
-        private void SaveChanges()
+        public string NewPassword
         {
-            _userService.ChangeUser(Utils.AppContext.CurrentUser);
+            get => _newName;
+            set
+            {
+                if (_newName == value)
+                    return;
+                _newName = value;
+                OnProperyChanged();
+            }
+        }
+        public void OnProperyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
