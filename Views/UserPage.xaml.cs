@@ -14,9 +14,13 @@ public partial class UserPage : ContentPage
     {
         Shell.Current.GoToAsync("//home/main");
     }
+
+    private bool _isPasswordVisible;
     private void OnShowPasswordButtonClicked(object sender, EventArgs e)
     {
-        passwordEntry.IsPassword = !passwordEntry.IsPassword;
+        _isPasswordVisible = !_isPasswordVisible;
+        passwordEntry.IsPassword = !_isPasswordVisible;
+        confirmedPasswordEntry.IsPassword = !_isPasswordVisible;
     }
 
 }
