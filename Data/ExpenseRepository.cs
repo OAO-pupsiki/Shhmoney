@@ -23,6 +23,13 @@ namespace Shhmoney.Data
             _dbContext.Expenses.Remove(expense);
             _dbContext.SaveChanges();
         }
+
+        public void UpdateExpense(Expense expense)
+        {
+            //_dbContext.Expenses.Update(expense);
+            _dbContext.SaveChanges();
+        }
+
         public void DeleteExpenseByUserId(int userId)
         {
             var list = _dbContext.Expenses.Where(e => e.UserId == userId).ToList();

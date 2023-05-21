@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json.Linq;
 using Shhmoney.Models;
 using Shhmoney.Services;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Shhmoney.ViewModels
 {
@@ -13,7 +15,10 @@ namespace Shhmoney.ViewModels
         private readonly UserService _userService;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsExpense))]
         bool isIncome;
+
+        public bool IsExpense => !IsIncome;
 
         [ObservableProperty]
         Account currentAccount;
@@ -39,8 +44,6 @@ namespace Shhmoney.ViewModels
         [ObservableProperty]
         DateTime date;
 
-        [ObservableProperty]
-        DateTime time;
 
         public TransactionViewModel(UserService userService)
         {
@@ -70,8 +73,15 @@ namespace Shhmoney.ViewModels
             (sender as Popup).Close();
         }
 
-        public void Save(object sender, EventArgs e)
+        public void Save(object sender, EventArgs e, Transaction transaction = null)
         {
+            if (transaction != null)
+            {
+                if (transaction is Income)
+                    _userService.RemoveIncome(transaction as Income);
+                else
+                    _userService.RemoveExpense(transaction as Expense);
+            }
             if (IsIncome)
             {
                 (sender as Popup).Close(new Income

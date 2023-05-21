@@ -24,6 +24,12 @@ namespace Shhmoney.Data
             _dbContext.SaveChanges();
         }
 
+        public void UpdateIncome(Income income) 
+        {
+            //_dbContext.Incomes.Update(income);
+            _dbContext.SaveChanges();
+        }
+
         public void DeleteIncomeByUserId(int userId)
         {
             var list = _dbContext.Incomes.Where(e => e.UserId == userId).ToList();

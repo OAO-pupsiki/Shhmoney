@@ -24,7 +24,7 @@
         <Label Text="Transaction Type" FontAttributes="Bold" Margin="7" />
         <StackLayout Orientation="Horizontal">
             <RadioButton Content="Income" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
-            <RadioButton Content="Expense" GroupName="TransactionType" />
+            <RadioButton Content="Expense" GroupName="TransactionType" IsChecked="{Binding IsExpense}"/>
         </StackLayout>
 
         <StackLayout HorizontalOptions="Start" Margin="7">

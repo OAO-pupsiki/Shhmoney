@@ -12,11 +12,13 @@ namespace Shhmoney.ViewModels
     {
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
         public ObservableCollection<IncomeCategory> IncomeCategories { get; set; }
-        private readonly TransactionService _transactionService;
         public ObservableCollection<Account> Accounts { get; set; }
+
         private readonly AccountService _accountService;
+        private readonly TransactionService _transactionService;
 
-
+        [ObservableProperty]
+        Transaction currentTransaction;
 
         private ObservableCollection<Transaction> transactions;
         public ObservableCollection<Transaction> Transactions 
@@ -62,7 +64,7 @@ namespace Shhmoney.ViewModels
         [RelayCommand]
         async void AddTransaction()
         {
-            var popup = new TransactionPopup(new TransactionViewModel(_userService));
+            var popup = new TransactionPopup(new TransactionViewModel(_userService), null);
             var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
             if (res != null)
             {
@@ -78,6 +80,39 @@ namespace Shhmoney.ViewModels
                 SetBalance();
             }
         }
+
+        public void RemoveTransaction()
+        {
+            if (CurrentTransaction is Income)
+            {
+                _userService.RemoveIncome(CurrentTransaction as Income);
+            }
+            else
+            {
+                _userService.RemoveExpense(CurrentTransaction as Expense);
+            }
+            Transactions.Remove(CurrentTransaction);
+        }
+
+        public async void ShowTransactionInfo()
+        {
+            var popup = new TransactionPopup(new TransactionViewModel(_userService), CurrentTransaction);
+            var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
+            if (res != null)
+            {
+                if (res is Income)
+                {
+                    _userService.AddIncome(res as Income);
+                }
+                else
+                {
+                    _userService.AddExpense(res as Expense);
+                }
+                SetTransactions();
+                SetBalance();
+            }
+        }
+
         public void UpdateList()
         {
             if (Categories != null && IncomeCategories != null)
