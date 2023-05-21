@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Shhmoney.Models;
 using Shhmoney.Services;
+using Shhmoney.Data;
 
 namespace Shhmoney.ViewModels
 {
@@ -23,18 +24,25 @@ namespace Shhmoney.ViewModels
         public ICommand AddAccountCommand { get; set; }
 
         private readonly AccountService _accountService;
+        private readonly CurrencyRepository _currencyRepository;
 
         //private readonly CurrencyService _currencyService;
         private string _name;
         private PaymentType _paymentType;
-       // private Currency _selectedCurrency;
+        private Currency _selectedCurrency;
 
-        public AccountViewModel(AccountService accountService)
+        public AccountViewModel(AccountService accountService, CurrencyRepository currencyRepository)
         {
             _accountService = accountService;
             Accounts = new ObservableCollection<Account>();
-            //_currencyService = new CurrencyService();
-            // Currencies = new ObservableCollection<Currency>(_currencyService.GetAllCurrencies());
+            _currencyRepository = currencyRepository;
+            Currencies = new ObservableCollection<Currency>()
+
+            {   new Currency { Code = "BYN" },
+                new Currency { Code = "EUR" },
+                new Currency { Code = "USD" },
+                new Currency { Code = "RUB" }
+            };
 
             AddAccountCommand = new Command(() =>
             {
@@ -43,26 +51,28 @@ namespace Shhmoney.ViewModels
                     Name = Name,
                     PaymentType = PaymentType,
                     UserId = Utils.AppContext.CurrentUser.Id,
-                    //CurrencyId = SelectedCurrency.Id,
-                    CurrencyId = 1,
+                    CurrencyId = _currencyRepository.GetCurrencyIdByCode(SelectedCurrency?.Code),
                 };
+
                 if (IsCard)
                 {
                     account.PaymentType = PaymentType.Card;
                     _accountService.AddAccount(account);
                     Shell.Current.DisplayAlert("Уведомление", "Платежная карта успешно добавлена", "ОK");
                 }
-                else 
+                else
                 {
                     account.PaymentType = PaymentType.Cash;
                     _accountService.AddAccount(account);
                     Shell.Current.DisplayAlert("Уведомление", "Счет успешно добавлен", "ОK");
                 }
+
                 Name = null;
                 PaymentType = default(PaymentType);
-                //SelectedCurrency = null;
+                SelectedCurrency = null;
             });
-        }      
+
+        }
 
         public string Name
         {
@@ -101,7 +111,7 @@ namespace Shhmoney.ViewModels
             }
         }
 
-       /* public Currency SelectedCurrency
+        public Currency SelectedCurrency
         {
             get => _selectedCurrency;
             set
@@ -111,7 +121,7 @@ namespace Shhmoney.ViewModels
                 _selectedCurrency = value;
                 OnProperyChanged();
             }
-        }*/
+        }
 
         public void OnProperyChanged([CallerMemberName] string propertyName = null)
         {

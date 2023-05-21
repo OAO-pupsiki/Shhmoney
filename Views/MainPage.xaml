@@ -110,7 +110,7 @@
             </Frame>
         </ScrollView>
 
-        <StackLayout Grid.RowSpan="2" Grid.Column="1" BackgroundColor="LightGray" Padding="5">
+        <StackLayout Grid.RowSpan="2" Grid.Column="1" Padding="5">
             <Button Text="Главная" BackgroundColor="DimGray" />
             <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked" />
             <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
@@ -121,7 +121,7 @@
 
         <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
           VerticalOptions="End" Padding="10">
-            <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Total balance : {0:F2}'}"
+            <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Текущий баланс: {0:F2}'}"
                FontSize="16" FontAttributes="Bold"
                VerticalOptions="CenterAndExpand"/>
             <Frame Grid.Column="1" 

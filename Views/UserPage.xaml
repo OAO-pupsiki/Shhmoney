@@ -5,25 +5,41 @@
              x:DataType="viewmodels:UserViewModel"
              Title="User Profile">
     <ScrollView>
-        <StackLayout Padding="20,40,20,0">
+        <StackLayout Padding="10,30,20,0">
+
         <Button Text="Назад" Clicked="GoBackButtonClicked" HorizontalOptions="End" Margin="0,20,0,0" />
 
-        <Image Source="user.png" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" />
+            <Grid RowDefinitions="45, 45, 45, 45" ColumnDefinitions=".50*, .50*" ColumnSpacing="10" RowSpacing="5" Padding="10,30,10,20">
 
-        <Label Text="{Binding User.Username}" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Start" Margin="0,20,0,0" />
+                <Label Text="Имя пользователя" FontSize="Medium" Grid.Row="0" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+                <Label Text="{Binding User.Username}" FontSize="Medium" FontAttributes="Bold" Grid.Row="0" Grid.Column="1"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"/>
 
-        <Label Text="{Binding User.Email}" FontSize="Medium" HorizontalOptions="Start" Margin="0,10,0,0" />
+                <Label Text="Электронная почта" FontSize="Medium" Grid.Row="1" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+                <Label Text="{Binding User.Email}" FontSize="Medium" Grid.Row="1" Grid.Column="1"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"/>
 
+                <Label Text="Новый пароль" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+                <Entry x:Name="passwordEntry" Text="{Binding NewPassword}" Placeholder="Новый пароль" IsPassword="True" Grid.Row="2" Grid.Column="1"
+                HorizontalOptions="Start"
+                WidthRequest="250"/>
+
+                <Label Text="Подтвердите пароль" FontSize="Medium" Grid.Row="3" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+                <Entry x:Name="confirmedPasswordEntry" Text="{Binding ConfirmedPassword}" Placeholder="Подтвердите пароль" IsPassword="True" Grid.Row="3" Grid.Column="1"
+                HorizontalOptions="Start" 
+                WidthRequest="250"/>
+
+            </Grid>
+           
         <!--<Label Text="{Binding User.Accounts}" FontSize="Medium" HorizontalOptions="Start" Margin="0,10,0,0" />-->
 
-        <Label Text="New Password" FontSize="Medium" Margin="0,20,0,0" />
-        <Entry x:Name="passwordEntry" Text="{Binding NewPassword}" IsPassword="True" Margin="0,10,0,0" />
-        <Label Text="Confirmed Password" FontSize="Medium" Margin="0,20,0,0" />
-        <Entry x:Name="confirmedPasswordEntry" Text="{Binding ConfirmedPassword}" IsPassword="True" Margin="0,10,0,0" />
-        <Button Text="Show password" Clicked="OnShowPasswordButtonClicked" />
+            <Button Text="Увидеть пароль" Clicked="OnShowPasswordButtonClicked" WidthRequest="500"/>
 
-
-        <Button Text="Save Changes" Margin="0,20,0,0" Command="{Binding SaveChangesCommand}" BackgroundColor="Green" TextColor="White" CornerRadius="5"/>
+        <Button Text="Сохранить изменения" Margin="0,20,0,0" Command="{Binding SaveChangesCommand}" BackgroundColor="Green" TextColor="White" CornerRadius="5"
+                WidthRequest="500"/>
+            
         </StackLayout>
     </ScrollView>
 

@@ -28,18 +28,19 @@ namespace Shhmoney.Services
             return _limitRepository.Add(mounthLimit);
         }
 
-       /* public void UpdateMounthLimit(int id, int limit, int totalLimit)
-        {
-            var mounthLimit = GetMounthLimitById(id);
-            mounthLimit.Limit = limit;
-            mounthLimit.TotalLimit = totalLimit;
-            _limitRepository.Update(mounthLimit);
-        }*/
+        /* public void UpdateMounthLimit(int id, int limit, int totalLimit)
+         {
+             var mounthLimit = GetMounthLimitById(id);
+             mounthLimit.Limit = limit;
+             mounthLimit.TotalLimit = totalLimit;
+             _limitRepository.Update(mounthLimit);
+         }*/
 
-        public MounthLimit GetMounthLimitById(int categoryId)
+        public MounthLimit GetMounthLimitByCategoryId(int categoryId)
         {
-            return _limitRepository.GetMounthLimitById(categoryId);
+            return _limitRepository.GetMounthLimitByCategoryId(categoryId);
         }
+    
     }
 
 }
