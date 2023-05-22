@@ -89,7 +89,7 @@ namespace Shhmoney.ViewModels
                     Name = Name,
                     Description = Description,
                     Value = Value,
-                    DateTime = DateTime.UtcNow,
+                    DateTime = Date.ToUniversalTime(),
                     User = Utils.AppContext.CurrentUser,
                     Account = CurrentAccount,
                     IncomeCategory = (IncomeCategory)CurrentCategory
@@ -102,7 +102,7 @@ namespace Shhmoney.ViewModels
                     Name = Name,
                     Description = Description,
                     Value = Value,
-                    DateTime = DateTime.UtcNow,
+                    DateTime = Date.ToUniversalTime(),
                     User = Utils.AppContext.CurrentUser,
                     Account = CurrentAccount,
                     ExpenseCategory = (ExpenseCategory)CurrentCategory

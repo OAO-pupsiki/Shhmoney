@@ -33,7 +33,9 @@ namespace Shhmoney.ViewModels
                 OnPropertyChanged();
             }
         }
-        public decimal Balance { get; set; } = 0;
+
+        [ObservableProperty]
+        decimal balance = 0;
 
         private readonly UserService _userService;
 
@@ -92,6 +94,7 @@ namespace Shhmoney.ViewModels
                 _userService.RemoveExpense(CurrentTransaction as Expense);
             }
             Transactions.Remove(CurrentTransaction);
+            SetBalance();
         }
 
         public async void ShowTransactionInfo()
