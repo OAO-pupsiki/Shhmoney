@@ -42,7 +42,7 @@ namespace Shhmoney.ViewModels
         string description;
 
         [ObservableProperty]
-        DateTime date;
+        DateTime date = DateTime.UtcNow;
 
 
         public TransactionViewModel(UserService userService)
