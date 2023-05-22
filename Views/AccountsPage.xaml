@@ -11,9 +11,12 @@
             <StackLayout HorizontalOptions="Center">
                 <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
 
-                    <Picker WidthRequest="250" x:Name="CurrencyTypes" Title="Валюта">
+                    <Picker WidthRequest="250" x:Name="CurrencyTypes" Title="Валюта" SelectedIndexChanged="OnCurrencySelectedIndexChanged">
                         <Picker.Items>
                             <x:String>BYN</x:String>
+                            <x:String>RUB</x:String>
+                            <x:String>USD</x:String>
+                            <x:String>EUR</x:String>
                         </Picker.Items>
                     </Picker>
                     

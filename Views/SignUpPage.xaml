@@ -7,16 +7,17 @@
              Shell.NavBarIsVisible="false">
     <StackLayout VerticalOptions="Center">
         <StackLayout VerticalOptions="Center" WidthRequest="250" Margin="20">
-            <Label Text="Create an Account" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-            <Entry Text="{Binding Username}" Placeholder="Username" Margin="0,0,0,10" />
-            <Entry Text="{Binding Email}" Placeholder="Email" Margin="0,0,0,10" Keyboard="Email"/>
-            <Entry Text="{Binding Password}" Placeholder="Password" Margin="0,0,0,10" IsPassword="True" />
-            <Entry Text="{Binding ConfirmedPassword}" Placeholder="Confirm Password" Margin="0,0,0,10" IsPassword="True" />
-            <Button HorizontalOptions="Fill" Command="{Binding SignUpCommand}" Text="Sign Up" Margin="0,0,0,20" />
+            <Image Source="logo.png" WidthRequest="120" HeightRequest="120" Margin="0,0,0,20"/>
+            <Label Text="Создать аккаунт" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+            <Entry Text="{Binding Username}" Placeholder="Имя пользователя" Margin="0,0,0,10" />
+            <Entry Text="{Binding Email}" Placeholder="Электронная почта" Margin="0,0,0,10" Keyboard="Email"/>
+            <Entry Text="{Binding Password}" Placeholder="Пароль" Margin="0,0,0,10" IsPassword="True" />
+            <Entry Text="{Binding ConfirmedPassword}" Placeholder="Подтвердите пароль" Margin="0,0,0,10" IsPassword="True" />
+            <Button HorizontalOptions="Fill" Command="{Binding SignUpCommand}" Text="Зарегистрироваться" Margin="0,0,0,20" />
         </StackLayout>
         <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-            <Label Text="Already have an account?" FontSize="14" VerticalOptions="CenterAndExpand"/>
-            <Button Command="{Binding LoginPageCommand}" Text="Log in" Margin="5" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue" FontSize="14" VerticalOptions="CenterAndExpand"/>
+            <Label Text="Уже зарегистрированы?" FontSize="14" VerticalOptions="CenterAndExpand"/>
+            <Button Command="{Binding LoginPageCommand}" Text="Войти" Margin="5" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue" FontSize="14" VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -26,6 +26,11 @@ namespace Shhmoney.Data
         public Currency GetCurrency(string code)
         {
             return _dbContext.Currencies.SingleOrDefault(c => c.Code == code);
+        } 
+        public int GetCurrencyIdByCode(string code)
+        {
+            var id = _dbContext.Currencies.SingleOrDefault(c => c.Code == code)?.Id;
+            return id ?? -1;
         }
 
         public List<Currency> GetAllCurrencies()

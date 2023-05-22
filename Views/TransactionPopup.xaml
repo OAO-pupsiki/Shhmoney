@@ -8,47 +8,51 @@
                Size="550,500">
 
     <VerticalStackLayout>
+        <Grid RowDefinitions="45, 45, 45, 45, 45, 45" ColumnDefinitions=".40*, .60*" ColumnSpacing="5" RowSpacing="5" Padding="10,30,10, 20">
 
-        <Label Text="Date" FontAttributes="Bold" />
-        <StackLayout Orientation="Horizontal">
-            <DatePicker Date="{Binding Date}"/>
-        </StackLayout>
+            <Label Text="Дата" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <DatePicker Date="{Binding Date}"/>
+            </StackLayout>
 
-        <StackLayout HorizontalOptions="Start" Margin="7">
-            <Label Text="Account" FontAttributes="Bold" />
-        <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding CurrentAccount}"
+            <Label Text="Счета" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding CurrentAccount}"
                 ItemDisplayBinding="{Binding Name}"
-                WidthRequest="250"/>
-        </StackLayout>
+                WidthRequest="250"
+                Grid.Row="1" Grid.Column="1"
+                HorizontalOptions="Start"/>
 
-        <Label Text="Transaction Type" FontAttributes="Bold" Margin="7" />
-        <StackLayout Orientation="Horizontal">
-            <RadioButton Content="Income" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
-            <RadioButton Content="Expense" GroupName="TransactionType" />
-        </StackLayout>
+            <Label Text="Тип транзакции" FontAttributes="Bold"  Grid.Row="2" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center" />
+            <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalOptions="Start">
+                <RadioButton Content="Доход" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
+                <RadioButton Content="Расход" GroupName="TransactionType" />
+            </StackLayout>
 
-        <StackLayout HorizontalOptions="Start" Margin="7">
-            <Label Text="Category" FontAttributes="Bold" />
-        <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}"
+            <Label Text="Категория" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}"
                 ItemDisplayBinding="{Binding Name}"
-                WidthRequest="250"/>
-        </StackLayout>
-
-        <Label Text="Value" FontAttributes="Bold"/>
-        <Entry Text="{Binding Value}"
                 WidthRequest="250"
-                HorizontalOptions="Start"
-                Margin="7"/>
+                Grid.Row="3" Grid.Column="1"
+                HorizontalOptions="Start"/>
 
-        <Label Text="Description" FontAttributes="Bold"/>
-        <Entry Text="{Binding Description}"
+
+            <Label Text="Значение" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Entry Text="{Binding Value}"
                 WidthRequest="250"
-                HorizontalOptions="Start"
-                Margin="7"/>
+                Grid.Row="4" Grid.Column="1"
+                HorizontalOptions="Start"/>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-            <Button Text="Save" Clicked="SaveButtonClicked" WidthRequest="80" />
-            <Button Text="Cancel" Clicked="CancelButtonClicked" WidthRequest="80"/>
+            <Label Text="Комментарий" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Entry Text="{Binding Description}"
+                WidthRequest="250"
+                Grid.Row="5" Grid.Column="1"
+                HorizontalOptions="Start"/>
+
+        </Grid>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Сохранить" Clicked="SaveButtonClicked" WidthRequest="110" />
+            <Button Text="Отмена" Clicked="CancelButtonClicked" WidthRequest="110"/>
         </StackLayout>
     </VerticalStackLayout>
 

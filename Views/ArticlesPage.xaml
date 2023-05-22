@@ -7,14 +7,46 @@
     <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
         <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
 
-            <StackLayout HorizontalOptions="Center">
-                <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
 
-                    <Label Text="Деньги" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-                    <Label Text="Личный бюджет" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-                    
-                </StackLayout>
+            <StackLayout HorizontalOptions="Start" Margin="20">
 
+                <Label Text="Финансовая Грамотность" FontSize="20" HorizontalTextAlignment="Start" Margin="0,0,0,20" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLinkTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Курс валют" FontSize="20" HorizontalTextAlignment="Start" Margin="0,0,0,20" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLinkTapped2" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Советы и лайфхаки" FontSize="20" HorizontalTextAlignment="Start" Margin="0,0,0,20" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLinkTapped3" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Сайты для повышения финансовой грамотности" FontSize="20" HorizontalTextAlignment="Start" Margin="0,0,0,20" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLinkTapped4" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="15 источников о финансовой грамотности в бизнесе и в жизни" FontSize="20" HorizontalTextAlignment="Start" Margin="0,0,0,20" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLinkTapped5" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="moneymuseum.jpg">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+ 
+                
             </StackLayout>
 
         </ScrollView>

@@ -23,7 +23,7 @@ public partial class AppShell : Shell
 
     private void OnSupportButtonClicked(object sender, EventArgs e)
     {
-        DisplayAlert("Контактные данные", "телефон/имэйл", "ОK");
+        DisplayAlert("Контактные данные", "shhmoneyhelp@gmail.com", "ОK");
 
     }
     private void OnUserButtonClicked(object sender, EventArgs e)

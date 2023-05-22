@@ -123,23 +123,167 @@ namespace Shhmoney.Data
             Expenses.Add(expense);
             SaveChanges();*/
 
-            /*var user = User.FirstOrDefault(c => c.Password == "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c");
-            if (user!= null)
+            var role = Roles.FirstOrDefault(c => c.Name == "User");
+            if (role == null)
             {
-                user = new User { Id = 1, Password = "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",  };
-                var dbItem = ExpenseCategories.Add(user);
+                role = new Role
+                {
+                    Name = "User",
+                    Description = "Simple user role"
+                };
+                var dbItem = Roles.Add(role);
                 this.SaveChanges();
             }
 
-
-            var expenseCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Продукты");
-            if (expenseCategory != null)
+            var user = Users.FirstOrDefault(c => c.Username == "admin");
+            if (user == null)
             {
-                expenseCategory = new ExpenseCategory { Description = "Еда123", Name = "Продукты", UserId = 1, IsBased = true };
+                user = new User {Username = "admin", 
+                    Password = "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",
+                    Email = "admin@admin.com", 
+                    RoleId = role.Id };
+                var dbItem = Users.Add(user);
+                this.SaveChanges();
+            }
+
+            var existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Еда");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Еда", UserId = user.Id, IsBased = true };
                 var dbItem = ExpenseCategories.Add(expenseCategory);
                 this.SaveChanges();
-            }*/
+            }
 
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Транспорт");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Транспорт", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Спорт");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Спорт", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Здоровье");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Здоровье", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Питомцы");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Питомцы", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Подарок");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Подарок", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Связь");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Связь", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Одежда");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Одежда", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Такси");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Такси", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Гигиена");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Гигиена", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Жилье");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Жилье", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Машина");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Машина", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Развлечения");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Развлечения", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            existingCategory = ExpenseCategories.FirstOrDefault(c => c.Name == "Кафе");
+            if (existingCategory == null)
+            {
+                var expenseCategory = new ExpenseCategory { Description = "", Name = "Кафе", UserId = user.Id, IsBased = true };
+                var dbItem = ExpenseCategories.Add(expenseCategory);
+                this.SaveChanges();
+            }
+
+            var existingICategory = IncomeCategories.FirstOrDefault(c => c.Name == "Депозиты");
+            if (existingICategory == null)
+            {
+                var incomeCategory = new IncomeCategory { Description = "", Name = "Депозиты", UserId = user.Id, IsBased = true };
+                var dbItem = IncomeCategories.Add(incomeCategory);
+                this.SaveChanges();
+            }
+            existingICategory = IncomeCategories.FirstOrDefault(c => c.Name == "Зарплата");
+            if (existingICategory == null)
+            {
+                var incomeCategory = new IncomeCategory { Description = "", Name = "Зарплата", UserId = user.Id, IsBased = true };
+                var dbItem = IncomeCategories.Add(incomeCategory);
+                this.SaveChanges();
+            }
+            existingICategory = IncomeCategories.FirstOrDefault(c => c.Name == "Сбережения");
+            if (existingICategory == null)
+            {
+                var incomeCategory = new IncomeCategory { Description = "", Name = "Сбережения", UserId = user.Id, IsBased = true };
+                var dbItem = IncomeCategories.Add(incomeCategory);
+                this.SaveChanges();
+            }
+
+            var byn = Currencies.FirstOrDefault(c => c.Code == "BYN");
+            if (byn == null)
+            {
+                byn = new Currency { Code = "BYN", Value = 1 };
+                var dbItem = Currencies.Add(byn);
+                this.SaveChanges();
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

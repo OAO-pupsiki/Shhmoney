@@ -30,27 +30,66 @@ public class CategoriesViewModel : INotifyPropertyChanged
         Categories = new ObservableCollection<ExpenseCategory>(_transactionService.GetExpenseCategoriesByUser(Utils.AppContext.CurrentUser));
         IncomeCategories = new ObservableCollection<IncomeCategory>(_transactionService.GetIncomeCategoriesByUser(Utils.AppContext.CurrentUser));
 
+        //AddCommand = new Command(() =>
+        //{
+        //    if (string.IsNullOrWhiteSpace(_name))
+        //    {
+        //        Shell.Current.DisplayAlert("Ошибка", "Наименование категории не может быть пустым", "ОK");
+        //    }
+        //    else 
+        //    {
+        //        if (IsExpenses)
+        //        {
+        //            Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+        //            Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+        //        }
+        //        else
+        //        {
+        //            IncomeCategories.Add(_transactionService.AddIncomeCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+        //            Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+        //        }
+        //        Name = string.Empty;
+        //    }
+
+        //});
+
         AddCommand = new Command(() =>
         {
             if (string.IsNullOrWhiteSpace(_name))
             {
                 Shell.Current.DisplayAlert("Ошибка", "Наименование категории не может быть пустым", "ОK");
             }
-            else 
+            else
             {
+                bool isDuplicateCategory = false;
                 if (IsExpenses)
                 {
-                    Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
-                    Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                    // Проверяем, существует ли уже категория с таким именем среди базовых категорий
+                    isDuplicateCategory = Categories.Any(c => c.Name == _name);
+                    if (!isDuplicateCategory)
+                    {
+                        Categories.Add(_transactionService.AddExpenseCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+                        Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                    }
                 }
                 else
                 {
-                    IncomeCategories.Add(_transactionService.AddIncomeCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
-                    Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                    // Проверяем, существует ли уже категория с таким именем среди базовых категорий
+                    isDuplicateCategory = IncomeCategories.Any(c => c.Name == _name);
+                    if (!isDuplicateCategory)
+                    {
+                        IncomeCategories.Add(_transactionService.AddIncomeCategory(_name, string.Empty, Utils.AppContext.CurrentUser));
+                        Shell.Current.DisplayAlert("Уведомление", "Успешно добавлена новая категория!", "ОK");
+                    }
                 }
+
+                if (isDuplicateCategory)
+                {
+                    Shell.Current.DisplayAlert("Ошибка", "Невозможно добавить категорию с таким же именем", "ОK");
+                }
+
                 Name = string.Empty;
             }
-
         });
 
         DeleteCommand = new Command<Category>(async (category) =>
