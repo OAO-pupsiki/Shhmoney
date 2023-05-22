@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Shhmoney"
              xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
              xmlns:models="clr-namespace:Shhmoney.Models"
              xmlns:utils="clr-namespace:Shhmoney.Utils"
@@ -11,7 +12,10 @@
     <ContentPage.Resources>
         <DataTemplate x:Key="ExpenseTemplate" x:DataType="models:Expense">
             <Grid ColumnDefinitions="*, *, *"
-                  Padding="15" Margin="1" >
+                  Padding="15" Margin="1"  x:Name="Parent">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="TapGestureRecognizer_Tapped_1" />
+                </Grid.GestureRecognizers>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState x:Name="PointerOver">
@@ -21,7 +25,7 @@
                         </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#212121"/>
+                                <Setter Property="BackgroundColor" Value="White"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -29,7 +33,7 @@
                 <VerticalStackLayout Grid.Column="0" Grid.Row="0"
                                      VerticalOptions="Center"
                                      Spacing="5">
-                    <Label Text="{Binding Name}"
+                    <Label Text="{Binding Description}"
                            FontSize="22" FontAttributes="Bold" />
                     <Label Text="{Binding DateTime}"
                            FontSize="12" />
@@ -40,16 +44,30 @@
                     <Label Text="{Binding ExpenseCategory.Name}" />
                     <Label Text="{Binding Account.Name}" />
                 </VerticalStackLayout>
-                <Label Grid.Row="0" Grid.Column="2"
+                <VerticalStackLayout Grid.Row="0" Grid.Column="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="End"
+                                     Spacing="5">
+                    <Label 
                        Text="{Binding Value, StringFormat='{0:F2}'}" TextColor="#e81010"
                        VerticalOptions="Center" HorizontalOptions="End"
                        FontSize="22" FontAttributes="Bold" />
+                    <Image Source="delete_icon.png" 
+                           HeightRequest="24" WidthRequest="24" x:Name="image">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </VerticalStackLayout>
             </Grid>
         </DataTemplate>
-
+        
         <DataTemplate x:Key="IncomeTemplate" x:DataType="models:Income">
-            <Grid ColumnDefinitions="*, *, *"
-                  Padding="15" Margin="1" >
+            <Grid ColumnDefinitions="*, *, *" 
+                  Padding="15" Margin="1" x:Name="Parent">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="TapGestureRecognizer_Tapped_1" />
+                </Grid.GestureRecognizers>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState x:Name="PointerOver">
@@ -59,7 +77,7 @@
                         </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#212121"/>
+                                <Setter Property="BackgroundColor" Value="White"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -67,7 +85,7 @@
                 <VerticalStackLayout Grid.Column="0" Grid.Row="0"
                                      VerticalOptions="Center"
                                      Spacing="5">
-                    <Label Text="{Binding Name}"
+                    <Label Text="{Binding Description}"
                            FontSize="22" FontAttributes="Bold" />
                     <Label Text="{Binding DateTime}"
                            FontSize="12" />
@@ -78,10 +96,22 @@
                     <Label Text="{Binding IncomeCategory.Name}" />
                     <Label Text="{Binding Account.Name}" />
                 </VerticalStackLayout>
-                <Label Grid.Row="0" Grid.Column="2"
+                <VerticalStackLayout Grid.Row="0" Grid.Column="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="End"
+                                   
+                                     Spacing="5">
+                    <Label 
                        Text="{Binding Value, StringFormat='{0:F2}'}" TextColor="#3EC25C"
                        VerticalOptions="Center" HorizontalOptions="End"
                        FontSize="22" FontAttributes="Bold" />
+                    <Image Source="delete_icon.png" 
+                           HeightRequest="24" WidthRequest="24" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </VerticalStackLayout>
             </Grid>
         </DataTemplate>
         
@@ -104,8 +134,9 @@
         <ScrollView Grid.Column="0" Orientation="Vertical">
             <Frame CornerRadius="15" Padding="0">
                 <StackLayout Padding="5">
-                    <CollectionView ItemsSource="{Binding Transactions}"
-                                ItemTemplate="{StaticResource TemplateSelector}" />
+                    <CollectionView x:Name="TransactionsCollection" ItemsSource="{Binding Transactions}" SelectionMode="Single"
+                                    ItemTemplate="{StaticResource TemplateSelector}"
+                                    SelectedItem="{Binding CurrentTransaction}"/>
                 </StackLayout>
             </Frame>
         </ScrollView>
@@ -130,7 +161,6 @@
                     VerticalOptions="Center"
                     Command="{Binding AddTransactionCommand}"/>
             </Frame>
-
         </Grid>
     </Grid>
     

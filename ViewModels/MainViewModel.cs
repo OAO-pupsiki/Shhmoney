@@ -12,11 +12,13 @@ namespace Shhmoney.ViewModels
     {
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
         public ObservableCollection<IncomeCategory> IncomeCategories { get; set; }
-        private readonly TransactionService _transactionService;
         public ObservableCollection<Account> Accounts { get; set; }
+
         private readonly AccountService _accountService;
+        private readonly TransactionService _transactionService;
 
-
+        [ObservableProperty]
+        Transaction currentTransaction;
 
         private ObservableCollection<Transaction> transactions;
         public ObservableCollection<Transaction> Transactions 
@@ -31,7 +33,9 @@ namespace Shhmoney.ViewModels
                 OnPropertyChanged();
             }
         }
-        public decimal Balance { get; set; } = 0;
+
+        [ObservableProperty]
+        decimal balance = 0;
 
         private readonly UserService _userService;
 
@@ -60,9 +64,9 @@ namespace Shhmoney.ViewModels
         }
 
         [RelayCommand]
-        public async void AddTransaction()
+        async void AddTransaction()
         {
-            var popup = new TransactionPopup(new TransactionViewModel(_userService));
+            var popup = new TransactionPopup(new TransactionViewModel(_userService), null);
             var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
             if (res != null)
             {
@@ -79,21 +83,39 @@ namespace Shhmoney.ViewModels
             }
         }
 
-        [RelayCommand]
-        public void RemoveTransaction(Transaction transaction)
+        public void RemoveTransaction()
         {
-            if (transaction is Income)
+            if (CurrentTransaction is Income)
             {
-                _userService.RemoveIncome(transaction as Income);
+                _userService.RemoveIncome(CurrentTransaction as Income);
             }
-            else if (transaction is Expense)
+            else
             {
-                _userService.RemoveExpense(transaction as Expense);
+                _userService.RemoveExpense(CurrentTransaction as Expense);
             }
-
-            SetTransactions();
+            Transactions.Remove(CurrentTransaction);
             SetBalance();
         }
+
+        public async void ShowTransactionInfo()
+        {
+            var popup = new TransactionPopup(new TransactionViewModel(_userService), CurrentTransaction);
+            var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
+            if (res != null)
+            {
+                if (res is Income)
+                {
+                    _userService.AddIncome(res as Income);
+                }
+                else
+                {
+                    _userService.AddExpense(res as Expense);
+                }
+                SetTransactions();
+                SetBalance();
+            }
+        }
+
         public void UpdateList()
         {
             if (Categories != null && IncomeCategories != null)

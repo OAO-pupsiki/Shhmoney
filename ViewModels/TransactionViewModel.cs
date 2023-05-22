@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json.Linq;
 using Shhmoney.Models;
 using Shhmoney.Services;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Shhmoney.ViewModels
 {
@@ -13,7 +15,10 @@ namespace Shhmoney.ViewModels
         private readonly UserService _userService;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsExpense))]
         bool isIncome;
+
+        public bool IsExpense => !IsIncome;
 
         [ObservableProperty]
         Account currentAccount;
@@ -31,16 +36,11 @@ namespace Shhmoney.ViewModels
         decimal value;
 
         [ObservableProperty]
-        string name;
-
-        [ObservableProperty]
         string description;
 
         [ObservableProperty]
-        DateTime date;
+        DateTime date = DateTime.UtcNow;
 
-        [ObservableProperty]
-        DateTime time;
 
         public TransactionViewModel(UserService userService)
         {
@@ -70,16 +70,22 @@ namespace Shhmoney.ViewModels
             (sender as Popup).Close();
         }
 
-        public void Save(object sender, EventArgs e)
+        public void Save(object sender, EventArgs e, Transaction transaction = null)
         {
+            if (transaction != null)
+            {
+                if (transaction is Income)
+                    _userService.RemoveIncome(transaction as Income);
+                else
+                    _userService.RemoveExpense(transaction as Expense);
+            }
             if (IsIncome)
             {
                 (sender as Popup).Close(new Income
                 {
-                    Name = Name,
                     Description = Description,
                     Value = Value,
-                    DateTime = DateTime.UtcNow,
+                    DateTime = Date.ToUniversalTime(),
                     User = Utils.AppContext.CurrentUser,
                     Account = CurrentAccount,
                     IncomeCategory = (IncomeCategory)CurrentCategory
@@ -89,10 +95,9 @@ namespace Shhmoney.ViewModels
             {
                 (sender as Popup).Close(new Expense
                 {
-                    Name = Name,
                     Description = Description,
                     Value = Value,
-                    DateTime = DateTime.UtcNow,
+                    DateTime = Date.ToUniversalTime(),
                     User = Utils.AppContext.CurrentUser,
                     Account = CurrentAccount,
                     ExpenseCategory = (ExpenseCategory)CurrentCategory

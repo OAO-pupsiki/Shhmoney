@@ -66,6 +66,11 @@ namespace Shhmoney.Services
             _incomeRepository.RemoveIncome(income);
         }
 
+        public void UpdateIncome(Income income)
+        {
+            _incomeRepository.UpdateIncome(income);
+        }
+
         public List<Expense> GetExpenses(Account account)
         {
             return new List<Expense>(_expenseRepository.GetExpensesByAccount(account));
@@ -79,6 +84,11 @@ namespace Shhmoney.Services
         public void RemoveExpense(Expense expense)
         {
             _expenseRepository.RemoveExpense(expense);
+        }
+
+        public void UpdateExpense(Expense expense)
+        {
+            _expenseRepository.UpdateExpense(expense);
         }
 
         public List<IncomeCategory> GetInocmeCategories()
