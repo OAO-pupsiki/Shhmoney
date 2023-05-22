@@ -36,9 +36,6 @@ namespace Shhmoney.ViewModels
         decimal value;
 
         [ObservableProperty]
-        string name;
-
-        [ObservableProperty]
         string description;
 
         [ObservableProperty]
@@ -86,7 +83,6 @@ namespace Shhmoney.ViewModels
             {
                 (sender as Popup).Close(new Income
                 {
-                    Name = Name,
                     Description = Description,
                     Value = Value,
                     DateTime = Date.ToUniversalTime(),
@@ -99,7 +95,6 @@ namespace Shhmoney.ViewModels
             {
                 (sender as Popup).Close(new Expense
                 {
-                    Name = Name,
                     Description = Description,
                     Value = Value,
                     DateTime = Date.ToUniversalTime(),

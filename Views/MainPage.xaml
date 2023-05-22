@@ -33,7 +33,7 @@
                 <VerticalStackLayout Grid.Column="0" Grid.Row="0"
                                      VerticalOptions="Center"
                                      Spacing="5">
-                    <Label Text="{Binding Name}"
+                    <Label Text="{Binding Description}"
                            FontSize="22" FontAttributes="Bold" />
                     <Label Text="{Binding DateTime}"
                            FontSize="12" />
@@ -85,7 +85,7 @@
                 <VerticalStackLayout Grid.Column="0" Grid.Row="0"
                                      VerticalOptions="Center"
                                      Spacing="5">
-                    <Label Text="{Binding Name}"
+                    <Label Text="{Binding Description}"
                            FontSize="22" FontAttributes="Bold" />
                     <Label Text="{Binding DateTime}"
                            FontSize="12" />

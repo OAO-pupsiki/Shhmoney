@@ -30,7 +30,6 @@ public partial class TransactionPopup : Popup
             }
 			transactionViewModel.CurrentAccount = transaction.Account;
 			transactionViewModel.Value = transaction.Value;
-			transactionViewModel.Name = transaction.Name;
 			transactionViewModel.Description = transaction.Description;
 
         }
