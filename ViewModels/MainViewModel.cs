@@ -50,6 +50,7 @@ namespace Shhmoney.ViewModels
         {
             foreach(var transaction in Transactions)
             {
+                Balance = 0;
                 if (transaction is Income)
                     Balance += transaction.Value;
                 else
@@ -68,6 +69,7 @@ namespace Shhmoney.ViewModels
         {
             var popup = new TransactionPopup(new TransactionViewModel(_userService), null);
             var res = await Shell.Current.ShowPopupAsync(popup) as Transaction;
+            
             if (res != null)
             {
                 if (res is Income)

@@ -8,18 +8,21 @@
     xmlns:views="clr-namespace:Shhmoney.Views"
     FlyoutBehavior="Disabled"
     x:Class="Shhmoney.AppShell">
-    <Shell.TitleView >
-        <HorizontalStackLayout>
-            <Image IsOpaque="False" Source="logo.png" HorizontalOptions="Start" WidthRequest="45" HeightRequest="45"/>
-            <HorizontalStackLayout HorizontalOptions="End">
-                <Button Text="Поддержка" Clicked="OnSupportButtonClicked" HeightRequest="35"
-                    BackgroundColor="DimGrey"
-                    TextColor="White">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="auto, *">
+            <Image IsOpaque="False" Source="logo.png" 
+                   HeightRequest="45"
+                   Grid.Column="0"/>
+            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End"
+                                   Spacing="5" VerticalOptions="Center">
+                <Button Text="Поддержка" Clicked="OnSupportButtonClicked" HeightRequest="30"
+                        BackgroundColor="DimGrey"
+                        TextColor="White">
                 </Button>
-                <Button Text="admin" Clicked="OnUserButtonClicked" HeightRequest="35"></Button>
-                <Button Text="Выйти" Clicked="OnExitButtonClicked" HeightRequest="35"></Button>
+                <Button Text="admin" Clicked="OnUserButtonClicked" ></Button>
+                <Button Text="Выйти" Clicked="OnExitButtonClicked" ></Button>
             </HorizontalStackLayout>
-        </HorizontalStackLayout>
+        </Grid>
     </Shell.TitleView>
     
     <ShellContent FlyoutItemIsVisible="False" Route="auth_main" ContentTemplate="{DataTemplate views:AuthenticationPage}" />

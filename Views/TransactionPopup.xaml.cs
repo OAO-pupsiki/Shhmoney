@@ -12,16 +12,18 @@ public partial class TransactionPopup : Popup
 
 	public TransactionPopup(TransactionViewModel transactionViewModel, Transaction transaction)
 	{
-		InitializeComponent();
-		BindingContext = transactionViewModel;
-		this.transactionViewModel = transactionViewModel;
+        
+        InitializeComponent();
+        BindingContext = transactionViewModel;
+
+        this.transactionViewModel = transactionViewModel;
 		this.transaction = transaction;
 		if (transaction != null)
 		{
-            transactionViewModel.IsIncome = true;
             if (transaction is Income)
 			{
-				transactionViewModel.CurrentCategory = (transaction as Income).IncomeCategory;
+                transactionViewModel.IsIncome = true;
+                transactionViewModel.CurrentCategory = (transaction as Income).IncomeCategory;
             }
 			else
 			{
@@ -35,7 +37,7 @@ public partial class TransactionPopup : Popup
         }
 	}
 
-    void SaveButtonClicked(object sender, EventArgs e) => transactionViewModel.Save(this, e, transaction);
-
-    void CancelButtonClicked(object sender, EventArgs e) => transactionViewModel.Cancel(this, e);
+	void SaveButtonClicked(object sender, EventArgs e) => Close();/*transactionViewModel.Save(this, e, transaction);
+*/
+    void CancelButtonClicked(object sender, EventArgs e) => Close();
 }
