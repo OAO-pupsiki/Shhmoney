@@ -5,6 +5,7 @@ using Shhmoney.Services;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using Shhmoney.Views;
+using Newtonsoft.Json.Linq;
 
 namespace Shhmoney.ViewModels
 {
@@ -16,11 +17,14 @@ namespace Shhmoney.ViewModels
         public ObservableCollection<Account> Accounts { get; set; }
         private readonly AccountService _accountService;
 
+        public ObservableCollection<MounthLimit> Limits { get; set; }
+        private readonly LimitService _limitService;
+
 
 
         private ObservableCollection<Transaction> transactions;
-        public ObservableCollection<Transaction> Transactions 
-        { 
+        public ObservableCollection<Transaction> Transactions
+        {
             get
             {
                 return transactions;
@@ -35,16 +39,18 @@ namespace Shhmoney.ViewModels
 
         private readonly UserService _userService;
 
-        public MainViewModel(UserService userService)
+        public MainViewModel(UserService userService, LimitService limitService)
         {
             _userService = userService;
+            _limitService = limitService;
             SetTransactions();
             SetBalance();
+
         }
 
         public void SetBalance()
         {
-            foreach(var transaction in Transactions)
+            foreach (var transaction in Transactions)
             {
                 if (transaction is Income)
                     Balance += transaction.Value;
@@ -53,10 +59,12 @@ namespace Shhmoney.ViewModels
             }
         }
 
+
+
         public void SetTransactions()
         {
             Transactions = new ObservableCollection<Transaction>(_userService.GetUserTransactions(Utils.AppContext.CurrentUser));
-            
+
         }
 
         [RelayCommand]
@@ -72,14 +80,26 @@ namespace Shhmoney.ViewModels
                 }
                 else
                 {
+                    var categoryId = res is Income ? (res as Income).IncomeCategoryId : (res as Expense).ExpenseCategoryId;
                     _userService.AddExpense(res as Expense);
+
+                    if (_limitService.IsExceeded(categoryId, res.Value))
+                    {
+                        await Shell.Current.DisplayAlert("Ошибка", "Превышен лимит", "OK");
+                        return;
+
+                    }
                 }
+
                 SetTransactions();
                 SetBalance();
             }
         }
 
-        [RelayCommand]
+    
+    
+
+    [RelayCommand]
         public void RemoveTransaction(Transaction transaction)
         {
             if (transaction is Income)

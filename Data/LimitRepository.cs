@@ -31,6 +31,7 @@ namespace Shhmoney.Data
                 return dbLimit;
             }
         }
+
         public MounthLimit GetMounthLimitByCategoryId(int categoryId)
         {
             return dbContext.MounthLimits.FirstOrDefault(c => c.ExpenseCategoryId == categoryId);
