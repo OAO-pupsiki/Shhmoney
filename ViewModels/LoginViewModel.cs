@@ -26,7 +26,7 @@ namespace Shhmoney.ViewModels
         [RelayCommand]
         void SignUpPage()
         {
-            Shell.Current.GoToAsync("//auth/signup");
+            Shell.Current.GoToAsync("//auth_signup");
         }
 
         [RelayCommand]
@@ -36,6 +36,7 @@ namespace Shhmoney.ViewModels
             {
                 _authenticationService.Login(Username, Password, RememberMe);
                 Shell.Current.GoToAsync("//home/main");
+                Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             }
             catch (Exception e)
             {

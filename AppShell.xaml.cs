@@ -38,7 +38,7 @@ public partial class AppShell : Shell
         if (result)
         {
            _authenticationService.LogOut();
-           await GoToAsync("//auth/main");
+           await GoToAsync("//auth_main");
         }
     }
 

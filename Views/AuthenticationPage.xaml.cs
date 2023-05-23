@@ -19,6 +19,7 @@ public partial class AuthenticationPage : ContentPage
         {
             await Task.Delay(5);
             await Shell.Current.GoToAsync("//home/main");
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
         }
     }
 }
