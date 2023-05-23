@@ -40,7 +40,20 @@ namespace Shhmoney.Services
         {
             return _limitRepository.GetMounthLimitByCategoryId(categoryId);
         }
-    
+        public bool IsExceeded(int categoryId, decimal expenseAmount)
+        {
+            var monthLimit = _limitRepository.GetMounthLimitByCategoryId(categoryId);
+
+            // Проверяем, если месячный лимит не найден, считаем, что он не превышен
+            if (monthLimit == null)
+            {
+                return false;
+            }
+
+            // Сравниваем расход с лимитом
+            return expenseAmount > monthLimit.Limit;
+        }
+
     }
 
 }

@@ -13,9 +13,12 @@ namespace Shhmoney.ViewModels
         public ObservableCollection<ExpenseCategory> Categories { get; set; }
         public ObservableCollection<IncomeCategory> IncomeCategories { get; set; }
         public ObservableCollection<Account> Accounts { get; set; }
+        public ObservableCollection<MounthLimit> Limits { get; set; }
+
 
         private readonly AccountService _accountService;
         private readonly TransactionService _transactionService;
+        private readonly LimitService _limitService;
 
         [ObservableProperty]
         Transaction currentTransaction;
@@ -39,15 +42,17 @@ namespace Shhmoney.ViewModels
 
         private readonly UserService _userService;
 
-        public MainViewModel(UserService userService)
+        public MainViewModel(UserService userService, LimitService limitService)
         {
             _userService = userService;
+            _limitService = limitService;
             SetTransactions();
             SetBalance();
         }
 
         public void SetBalance()
         {
+            Balance = 0;
             foreach(var transaction in Transactions)
             {
                 if (transaction is Income)
@@ -76,6 +81,13 @@ namespace Shhmoney.ViewModels
                 }
                 else
                 {
+                    var categoryId = (res as Expense).ExpenseCategory.Id;              
+                    if (_limitService.IsExceeded(categoryId, res.Value))
+                    {
+                        await Shell.Current.DisplayAlert("Ошибка", "Превышен лимит", "OK");
+                        return;
+
+                    }
                     _userService.AddExpense(res as Expense);
                 }
                 SetTransactions();

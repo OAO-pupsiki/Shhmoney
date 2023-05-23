@@ -53,7 +53,7 @@
                        VerticalOptions="Center" HorizontalOptions="End"
                        FontSize="22" FontAttributes="Bold" />
                     <Image Source="delete_icon.png" 
-                           HeightRequest="24" WidthRequest="24" x:Name="image">
+                           HeightRequest="24" WidthRequest="24" x:Name="image" VerticalOptions="Center" HorizontalOptions="End">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                         </Image.GestureRecognizers>
@@ -106,7 +106,7 @@
                        VerticalOptions="Center" HorizontalOptions="End"
                        FontSize="22" FontAttributes="Bold" />
                     <Image Source="delete_icon.png" 
-                           HeightRequest="24" WidthRequest="24" >
+                           HeightRequest="24" WidthRequest="24" VerticalOptions="Center" HorizontalOptions="End">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                         </Image.GestureRecognizers>
