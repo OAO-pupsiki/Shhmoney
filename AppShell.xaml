@@ -7,19 +7,27 @@
     xmlns:local="clr-namespace:Shhmoney"
     xmlns:views="clr-namespace:Shhmoney.Views"
     FlyoutBehavior="Disabled"
-    x:Class="Shhmoney.AppShell">
-    <Shell.TitleView >
-        <HorizontalStackLayout>
-            <Image IsOpaque="False" Source="logo.png" HorizontalOptions="Start" WidthRequest="45" HeightRequest="45"/>
-            <HorizontalStackLayout HorizontalOptions="End">
-                <Button Text="Поддержка" Clicked="OnSupportButtonClicked" HeightRequest="35"
+    x:Class="Shhmoney.AppShell"
+    TabBarIsVisible="False">
+    <Shell.TitleView>
+        <Grid RowDefinitions="45" ColumnDefinitions=".10*, .30*, .20*, .10*, .10*, .10*, .10*" ColumnSpacing="5" RowSpacing="5" BackgroundColor="DimGrey">
+            <Image Source="logo.png" Grid.Column="0" Grid.Row="0" Margin="3" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" />
+            <Label Text="Shhmoney" Grid.Column="1" Grid.Row="0" FontSize="32" TextColor="DarkOrange" />
+
+            <Button Text="Поддержка" Clicked="OnSupportButtonClicked" Grid.Column="4" Grid.Row="0" HeightRequest="35"
                     BackgroundColor="DimGrey"
                     TextColor="White">
-                </Button>
-                <Button Text="admin" Clicked="OnUserButtonClicked" HeightRequest="35"></Button>
-                <Button Text="Выйти" Clicked="OnExitButtonClicked" HeightRequest="35"></Button>
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
+                <!--<Span Text="Поддержка"
+                  TextColor="AliceBlue"
+                  TextDecorations="Underline">
+                </Span>-->
+            </Button>
+
+
+            <Button Text="admin" Clicked="OnUserButtonClicked" Grid.Column="5" Grid.Row="0" HeightRequest="35"></Button>
+            <Button Text="Выйти" Clicked="OnExitButtonClicked" Grid.Column="6" Grid.Row="0" HeightRequest="35"></Button>
+
+        </Grid>
     </Shell.TitleView>
     
     <ShellContent FlyoutItemIsVisible="False" Route="auth_main" ContentTemplate="{DataTemplate views:AuthenticationPage}" />
