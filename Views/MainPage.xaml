@@ -131,7 +131,7 @@
 
         <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
           VerticalOptions="End" Padding="10">
-            <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Total balance : {0:F2}'}"
+            <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Общий баланс : {0:F2}'}"
                FontSize="16" FontAttributes="Bold"
                VerticalOptions="CenterAndExpand"/>
             <Frame Grid.Column="1" 

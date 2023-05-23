@@ -19,7 +19,7 @@
                         BackgroundColor="DimGrey"
                         TextColor="White">
                 </Button>
-                <Button Text="admin" Clicked="OnUserButtonClicked" ></Button>
+                <Button x:Name="CurrentUsername" Text="admin" Clicked="OnUserButtonClicked" ></Button>
                 <Button Text="Выйти" Clicked="OnExitButtonClicked" ></Button>
             </HorizontalStackLayout>
         </Grid>

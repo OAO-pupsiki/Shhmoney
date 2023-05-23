@@ -37,7 +37,6 @@ public partial class TransactionPopup : Popup
         }
 	}
 
-	void SaveButtonClicked(object sender, EventArgs e) => Close();/*transactionViewModel.Save(this, e, transaction);
-*/
+	void SaveButtonClicked(object sender, EventArgs e) => transactionViewModel.Save(this, e, transaction);
     void CancelButtonClicked(object sender, EventArgs e) => Close();
 }

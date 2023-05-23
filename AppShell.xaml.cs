@@ -12,12 +12,12 @@ namespace Shhmoney;
 public partial class AppShell : Shell
 { 
     public AuthenticationService _authenticationService { get; set; }
+
 	public AppShell(CurrencyExchangeRate currencyExchangeRate, AuthenticationService authenticationService)
 	{
 		InitializeComponent();
         currencyExchangeRate.LoadCurrencies();
         _authenticationService = authenticationService;
-
     }
     public ICommand TapCommand => new Command<string>((url) => DisplayAlert("Уведомление", "Наименование категории успешно изменено!", "ОK"));
 
