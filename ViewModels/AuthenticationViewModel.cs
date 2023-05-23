@@ -14,10 +14,10 @@ namespace Shhmoney.ViewModels
         }
 
         [RelayCommand]
-        void LoginPage() => Shell.Current.GoToAsync("//auth/login");
+        void LoginPage() => Shell.Current.GoToAsync("//auth_login");
 
         [RelayCommand]
-        void SignUpPage() => Shell.Current.GoToAsync("//auth/signup");
+        void SignUpPage() => Shell.Current.GoToAsync("//auth_signup");
 
         public bool isLoggedIn()
         {

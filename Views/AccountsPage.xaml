@@ -30,12 +30,5 @@
 
         </ScrollView>
 
-        <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
-            <Button Text="Главная" Clicked="OnMainClicked" />
-            <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked"/>
-            <Button Text="Счета" Margin="0, 5, 0, 0" BackgroundColor="DimGray"/>
-            <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
-            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked" />
-        </StackLayout>
     </Grid>
 </ContentPage>

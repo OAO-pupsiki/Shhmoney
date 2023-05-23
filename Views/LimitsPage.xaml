@@ -6,42 +6,30 @@
              x:DataType="viewmodels:LimitViewModel"
              Title="LimitsPage">
     <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
-        
-        <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
 
+        <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
             <StackLayout HorizontalOptions="Center">
                 <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
-
                     <Picker WidthRequest="250" x:Name="CurrencyTypes" Title="Валюта">
                         <Picker.Items>
                             <x:String>BYN</x:String>
                         </Picker.Items>
                     </Picker>
-
+                    
                     <Picker WidthRequest="250" 
                             x:Name="CategoriesTypes" 
                             Title="Выберите категорию расходов" 
                             ItemsSource="{Binding Categories}"
                             ItemDisplayBinding="{Binding Name}"
                             SelectedItem="{Binding SelectedCategory}">
-
                     </Picker>
-
+                    
                     <Label Text="Введите сумму лимита на месяц" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
                     <Entry Text="{Binding Limit}" Placeholder="XXXBYN" Margin="0,0,0,10"/>
                     <Button Command="{Binding AddCommand}" HorizontalOptions="Fill" Text="Установить" Margin="0,0,0,20"/>
+                    
                 </StackLayout>
-                
-
             </StackLayout>
         </ScrollView>
-
-            <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
-            <Button Text="Главная" Clicked="OnMainClicked" />
-            <Button Text="Категории" Margin="0, 5, 0, 0"  Clicked="OnCategoriesClicked"/>
-            <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
-            <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
-            <Button Text="Настройки" Margin="0, 5, 0, 0" BackgroundColor="DimGray"/>
-        </StackLayout>
     </Grid>
 </ContentPage>

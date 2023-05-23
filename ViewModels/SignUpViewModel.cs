@@ -30,14 +30,14 @@ namespace Shhmoney.ViewModels
         {
             if (_authenticationService.SignUp(Username, Password, Email))
             {
-                Shell.Current.GoToAsync("//auth/login");
+                Shell.Current.GoToAsync("//auth_login");
             }
         }
 
         [RelayCommand]
         void LoginPage()
         {
-            Shell.Current.GoToAsync("//auth/login");
+            Shell.Current.GoToAsync("//auth_login");
         }
 
 

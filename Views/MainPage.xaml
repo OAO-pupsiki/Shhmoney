@@ -20,7 +20,7 @@
                     <VisualStateGroup>
                         <VisualState x:Name="PointerOver">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#2b46c4"/>
+                                <Setter Property="BackgroundColor" Value="#D3D3D3"/>
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Normal">
@@ -61,7 +61,7 @@
                 </VerticalStackLayout>
             </Grid>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="IncomeTemplate" x:DataType="models:Income">
             <Grid ColumnDefinitions="*, *, *" 
                   Padding="15" Margin="1" x:Name="Parent">
@@ -72,7 +72,7 @@
                     <VisualStateGroup>
                         <VisualState x:Name="PointerOver">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#2b46c4"/>
+                                <Setter Property="BackgroundColor" Value="#D3D3D3"/>
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Normal">
@@ -114,41 +114,20 @@
                 </VerticalStackLayout>
             </Grid>
         </DataTemplate>
-        
+
         <utils:TransactionTemplateSelector x:Key="TemplateSelector"
                                            ExpenseTemplate="{StaticResource ExpenseTemplate}"
                                            IncomeTemplate="{StaticResource IncomeTemplate}" />
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".8*" />
-            <ColumnDefinition Width=".2*" />
-        </Grid.ColumnDefinitions>
-
+    <Grid RowDefinitions="auto, *">
         <ScrollView Grid.Column="0" Orientation="Vertical">
-            <Frame CornerRadius="15" Padding="0">
-                <StackLayout Padding="5">
-                    <CollectionView x:Name="TransactionsCollection" ItemsSource="{Binding Transactions}" SelectionMode="Single"
-                                    ItemTemplate="{StaticResource TemplateSelector}"
-                                    SelectedItem="{Binding CurrentTransaction}"/>
-                </StackLayout>
-            </Frame>
+            <StackLayout Padding="5">
+                <CollectionView x:Name="TransactionsCollection" ItemsSource="{Binding Transactions}" SelectionMode="Single"
+                                ItemTemplate="{StaticResource TemplateSelector}"
+                                SelectedItem="{Binding CurrentTransaction}"/>
+            </StackLayout>
         </ScrollView>
-
-        <StackLayout Grid.RowSpan="2" Grid.Column="1" Padding="5">
-            <Button Text="Главная" BackgroundColor="DimGray" />
-            <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked" />
-            <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
-            <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
-            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked"/>
-        </StackLayout>
-
 
         <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
           VerticalOptions="End" Padding="10">
@@ -163,5 +142,5 @@
             </Frame>
         </Grid>
     </Grid>
-    
+ 
 </ContentPage>

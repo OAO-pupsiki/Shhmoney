@@ -12,19 +12,11 @@
 
                     <Label Text="Деньги" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
                     <Label Text="Личный бюджет" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-                    
+
                 </StackLayout>
 
             </StackLayout>
 
         </ScrollView>
-
-        <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
-            <Button Text="Главная" Clicked="OnMainClicked" />
-            <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked"/>
-            <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
-            <Button Text="Статьи" Margin="0, 5, 0, 0" BackgroundColor="DimGray"/>
-            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked" />
-        </StackLayout>
     </Grid>
 </ContentPage>
