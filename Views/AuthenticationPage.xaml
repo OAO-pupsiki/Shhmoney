@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
              x:Class="Shhmoney.Views.AuthenticationPage"
-             x:DataType="viewmodels:AuthenticationViewModel">
+             x:DataType="viewmodels:AuthenticationViewModel"
+             Shell.NavBarIsVisible="false">
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="20">
-        <Label Text="Welcome to Shhmoney" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+        <Image Source="logo.png" WidthRequest="180" HeightRequest="180" Margin="0,0,0,20"/>
+        <Label Text="Добро пожаловать в приложение Shhmoney" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
-            <Button Command="{Binding LoginPageCommand}" Text="Log In" Margin="0,0,10,0" WidthRequest="150"/>
-            <Button Command="{Binding SignUpPageCommand}" Text="Sign Up" Margin="10,0,0,0" WidthRequest="150"/>
+            <Button Command="{Binding LoginPageCommand}" Text="Вход" Margin="0,0,10,0" WidthRequest="150"/>
+            <Button Command="{Binding SignUpPageCommand}" Text="Регистрация" Margin="10,0,0,0" WidthRequest="150"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

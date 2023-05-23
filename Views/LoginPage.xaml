@@ -3,22 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
              x:Class="Shhmoney.Views.LoginPage"
-             x:DataType="viewmodels:LoginViewModel">
+             x:DataType="viewmodels:LoginViewModel"
+             Shell.NavBarIsVisible="false">
     <StackLayout HorizontalOptions="Center">
         <StackLayout HorizontalOptions="Start" WidthRequest="250" Margin="20">
-            <Image Source="logo.png" WidthRequest="80" HeightRequest="80" Margin="0,0,0,20"/>
-            <Label Text="Login into Account" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
-            <Entry Text="{Binding Username}" Placeholder="Username" Margin="0,0,0,10"/>
-            <Entry Text="{Binding Password}" Placeholder="Password" Margin="0,0,0,10" IsPassword="True"/>
+            <Image Source="logo.png" WidthRequest="120" HeightRequest="120" Margin="0,0,0,20"/>
+            <Label Text="Войти в приложение" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+            <Entry Text="{Binding Username}" Placeholder="Имя пользователя" Margin="0,0,0,10"/>
+            <Entry Text="{Binding Password}" Placeholder="Пароль" Margin="0,0,0,10" IsPassword="True"/>
             <StackLayout VerticalOptions="Center" Orientation="Horizontal" Margin="0,0,0,10">
                 <CheckBox IsChecked="{Binding RememberMe}" WidthRequest="20" VerticalOptions="CenterAndExpand"/>
-                <Label Text="Remember me" FontSize="14" VerticalOptions="CenterAndExpand"/>
+                <Label Text="Запомнить меня?" FontSize="14" VerticalOptions="CenterAndExpand"/>
             </StackLayout>
-            <Button HorizontalOptions="Fill" Text="Login" Margin="0,0,0,20"/>
+            <Button Command="{Binding LoginCommand}" HorizontalOptions="Fill" Text="Войти" Margin="0,0,0,20"/>
         </StackLayout>
         <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-            <Label Text="Dont have an account?" FontSize="14" VerticalOptions="CenterAndExpand"/>
-            <Button Command="{Binding SignUpPageCommand}" Text="Sing up" Margin="5" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue" FontSize="14" VerticalOptions="CenterAndExpand"/>
+            <Label Text="Вы ещё не с нами?" FontSize="14" VerticalOptions="CenterAndExpand"/>
+            <Button Command="{Binding SignUpPageCommand}" Text="Регистрация" Margin="5" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue" FontSize="14" VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

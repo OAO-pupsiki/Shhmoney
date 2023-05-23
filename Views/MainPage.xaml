@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
+             xmlns:models="clr-namespace:Shhmoney.Models"
+             xmlns:utils="clr-namespace:Shhmoney.Utils"
+             x:Class="Shhmoney.Views.MainPage"
+             x:DataType="viewmodels:MainViewModel"
+             Title="MainPage">
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="ExpenseTemplate" x:DataType="models:Expense">
+            <Grid ColumnDefinitions="*, *, *"
+                  Padding="15" Margin="1" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#2b46c4"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#212121"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="0"
+                                     VerticalOptions="Center"
+                                     Spacing="5">
+                    <Label Text="{Binding Name}"
+                           FontSize="22" FontAttributes="Bold" />
+                    <Label Text="{Binding DateTime}"
+                           FontSize="12" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0"
+                                     VerticalOptions="Center" HorizontalOptions="End"
+                                     Spacing="5" >
+                    <Label Text="{Binding ExpenseCategory.Name}" />
+                    <Label Text="{Binding Account.Name}" />
+                </VerticalStackLayout>
+                <Label Grid.Row="0" Grid.Column="2"
+                       Text="{Binding Value, StringFormat='{0:F2}'}" TextColor="#e81010"
+                       VerticalOptions="Center" HorizontalOptions="End"
+                       FontSize="22" FontAttributes="Bold" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="IncomeTemplate" x:DataType="models:Income">
+            <Grid ColumnDefinitions="*, *, *"
+                  Padding="15" Margin="1" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#2b46c4"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#212121"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="0"
+                                     VerticalOptions="Center"
+                                     Spacing="5">
+                    <Label Text="{Binding Name}"
+                           FontSize="22" FontAttributes="Bold" />
+                    <Label Text="{Binding DateTime}"
+                           FontSize="12" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0"
+                                     VerticalOptions="Center" HorizontalOptions="End"
+                                     Spacing="5" >
+                    <Label Text="{Binding IncomeCategory.Name}" />
+                    <Label Text="{Binding Account.Name}" />
+                </VerticalStackLayout>
+                <Label Grid.Row="0" Grid.Column="2"
+                       Text="{Binding Value, StringFormat='{0:F2}'}" TextColor="#3EC25C"
+                       VerticalOptions="Center" HorizontalOptions="End"
+                       FontSize="22" FontAttributes="Bold" />
+            </Grid>
+        </DataTemplate>
+        
+        <utils:TransactionTemplateSelector x:Key="TemplateSelector"
+                                           ExpenseTemplate="{StaticResource ExpenseTemplate}"
+                                           IncomeTemplate="{StaticResource IncomeTemplate}" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".8*" />
+            <ColumnDefinition Width=".2*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollView Grid.Column="0" Orientation="Vertical">
+            <Frame CornerRadius="15" Padding="0">
+                <StackLayout Padding="5">
+                    <CollectionView ItemsSource="{Binding Transactions}"
+                                ItemTemplate="{StaticResource TemplateSelector}" />
+                </StackLayout>
+            </Frame>
+        </ScrollView>
+
+        <StackLayout Grid.RowSpan="2" Grid.Column="1" Padding="5">
+            <Button Text="Главная" BackgroundColor="DimGray" />
+            <Button Text="Категории" Margin="0, 5, 0, 0" Clicked="OnCategoriesClicked" />
+            <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
+            <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
+            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked"/>
+        </StackLayout>
+
+
+        <Grid Grid.Row="1"  ColumnDefinitions="*, auto"
+          VerticalOptions="End" Padding="10">
+            <Label Grid.Column="0"  Text="{Binding Balance, StringFormat='Текущий баланс: {0:F2}'}"
+               FontSize="16" FontAttributes="Bold"
+               VerticalOptions="CenterAndExpand"/>
+            <Frame Grid.Column="1" 
+               Padding="0" CornerRadius="100">
+                <Button Text="+" 
+                    VerticalOptions="Center"
+                    Command="{Binding AddTransactionCommand}"/>
+            </Frame>
+
+        </Grid>
+    </Grid>
+    
+</ContentPage>

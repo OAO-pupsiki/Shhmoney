@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
+             x:Class="Shhmoney.Views.CategoriesPage"
+             x:DataType="viewmodels:CategoriesViewModel"
+             Title="CategoriesPage">
+    <Grid RowDefinitions="*" ColumnDefinitions=".80*, .20*">
+        <ScrollView  Grid.Column="0" Grid.Row="0" Padding="5, 20, 5, 0">
+
+            <StackLayout HorizontalOptions="Center">
+                <StackLayout HorizontalOptions="Center" WidthRequest="250" Margin="20">
+                    <Label Text="Введите наименование новой категории" FontSize="20" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+                    <Entry Text="{Binding Name}" Placeholder="Категория" Margin="0,0,0,10"/>
+                    <StackLayout VerticalOptions="Center" Orientation="Horizontal" Margin="0,0,0,10">
+                        <RadioButton GroupName="categoryType" Content="Расходы" IsChecked="{Binding IsExpenses}"  />
+                        <RadioButton GroupName="categorType" Content="Доходы" />
+                    </StackLayout>
+                    <Button Command="{Binding AddCommand}" HorizontalOptions="Fill" Text="Добавить" Margin="0,0,0,20"/>
+                </StackLayout>
+
+                <Label Text="Категории расходов"/>
+                <ListView x:Name="expensecategoriesListView" ItemsSource="{Binding Categories}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Удалить" BackgroundColor="Red" 
+                                       Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Name=expensecategoriesListView}}"
+                                       CommandParameter="{Binding .}" />
+                                            <SwipeItem Text="Изменить" BackgroundColor="Green" 
+                                       Command="{Binding Path=BindingContext.ChangeCommand, Source={x:Reference Name=expensecategoriesListView}}"
+                                       CommandParameter="{Binding .}" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+                <Label Text="Категории доходов"/>
+                <ListView x:Name="incomecategoriesListView" ItemsSource="{Binding IncomeCategories}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Удалить" BackgroundColor="Red" 
+                                       Command="{Binding Path=BindingContext.DeleteIncomeCategoryCommand, Source={x:Reference Name=incomecategoriesListView}}"
+                                       CommandParameter="{Binding .}" />
+                                            <SwipeItem Text="Изменить" BackgroundColor="Green" 
+                                       Command="{Binding Path=BindingContext.ChangeIncomeCategoryCommand, Source={x:Reference Name=incomecategoriesListView}}"
+                                       CommandParameter="{Binding .}" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+        </ScrollView>
+
+        <StackLayout Grid.Column="1" Grid.Row="0" Padding="5, 20, 5, 0">
+            <Button Text="Главная" Clicked="OnMainClicked" />
+            <Button Text="Категории" Margin="0, 5, 0, 0" BackgroundColor="DimGray" />
+            <Button Text="Счета" Margin="0, 5, 0, 0" Clicked="OnAccountsClicked"/>
+            <Button Text="Статьи" Margin="0, 5, 0, 0" Clicked="OnArticlesClicked"/>
+            <Button Text="Настройки" Margin="0, 5, 0, 0" Clicked="OnSettingsClicked" />
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

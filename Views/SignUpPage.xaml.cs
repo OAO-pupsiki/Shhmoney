@@ -3,9 +3,9 @@ namespace Shhmoney.Views;
 
 public partial class SignUpPage : ContentPage
 {
-	public SignUpPage()
+	public SignUpPage(SignUpViewModel signUpViewModel)
 	{
 		InitializeComponent();
-		BindingContext = new SignUpViewModel();
+		BindingContext = signUpViewModel;
 	}
 }

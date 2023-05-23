@@ -1,0 +1,59 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:viewmodels="clr-namespace:Shhmoney.ViewModels"
+               Color="SteelBlue" 
+               x:Class="Shhmoney.Views.TransactionPopup"
+               x:DataType="viewmodels:TransactionViewModel"
+               Size="550,500">
+
+    <VerticalStackLayout>
+        <Grid RowDefinitions="45, 45, 45, 45, 45, 45" ColumnDefinitions=".40*, .60*" ColumnSpacing="5" RowSpacing="5" Padding="10,30,10, 20">
+
+            <Label Text="Дата" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <DatePicker Date="{Binding Date}"/>
+            </StackLayout>
+
+            <Label Text="Счета" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding CurrentAccount}"
+                ItemDisplayBinding="{Binding Name}"
+                WidthRequest="250"
+                Grid.Row="1" Grid.Column="1"
+                HorizontalOptions="Start"/>
+
+            <Label Text="Тип транзакции" FontAttributes="Bold"  Grid.Row="2" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center" />
+            <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalOptions="Start">
+                <RadioButton Content="Доход" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
+                <RadioButton Content="Расход" GroupName="TransactionType" />
+            </StackLayout>
+
+            <Label Text="Категория" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}"
+                ItemDisplayBinding="{Binding Name}"
+                WidthRequest="250"
+                Grid.Row="3" Grid.Column="1"
+                HorizontalOptions="Start"/>
+
+
+            <Label Text="Значение" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Entry Text="{Binding Value}"
+                WidthRequest="250"
+                Grid.Row="4" Grid.Column="1"
+                HorizontalOptions="Start"/>
+
+            <Label Text="Комментарий" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Entry Text="{Binding Description}"
+                WidthRequest="250"
+                Grid.Row="5" Grid.Column="1"
+                HorizontalOptions="Start"/>
+
+        </Grid>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Сохранить" Clicked="SaveButtonClicked" WidthRequest="110" />
+            <Button Text="Отмена" Clicked="CancelButtonClicked" WidthRequest="110"/>
+        </StackLayout>
+    </VerticalStackLayout>
+
+</toolkit:Popup>
