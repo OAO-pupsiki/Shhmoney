@@ -12,6 +12,10 @@ namespace Shhmoney.Data
             _dbContext = dbContext;
         }
 
+        public RoleRepository()
+        {
+        }
+
         public void AddRole(Role role)
         {
             _dbContext.Roles.Add(role);

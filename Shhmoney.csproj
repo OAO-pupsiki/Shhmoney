@@ -59,6 +59,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+	    <HintPath>D:\visual\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\v2.0\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Views\SignUpPage.xaml.cs">
 	    <DependentUpon>SignUpPage.xaml</DependentUpon>
 	  </Compile>

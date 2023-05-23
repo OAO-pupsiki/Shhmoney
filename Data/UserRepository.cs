@@ -12,6 +12,10 @@ namespace Shhmoney.Data
             _dbContext = dbContext;
         }
 
+        public UserRepository()
+        {
+        }
+
         public void AddUser(User user)
         {
             _dbContext.Users.Add(user);

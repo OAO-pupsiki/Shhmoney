@@ -11,6 +11,10 @@ namespace Shhmoney.Data
             _dbContext = dbContext;
         }
 
+        public UserSessionRepository()
+        {
+        }
+
         public void AddSession(UserSession session)
         {
             _dbContext.Sessions.Add(session);
