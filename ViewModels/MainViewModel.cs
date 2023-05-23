@@ -48,9 +48,9 @@ namespace Shhmoney.ViewModels
 
         public void SetBalance()
         {
-            foreach(var transaction in Transactions)
+            Balance = 0;
+            foreach (var transaction in Transactions)
             {
-                Balance = 0;
                 if (transaction is Income)
                     Balance += transaction.Value;
                 else

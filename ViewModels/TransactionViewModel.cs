@@ -16,7 +16,7 @@ namespace Shhmoney.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsExpense))]
-        bool isIncome;
+        public bool isIncome;
 
         public bool IsExpense => !IsIncome;
 

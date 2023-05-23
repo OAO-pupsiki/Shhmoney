@@ -22,7 +22,7 @@ public partial class TransactionPopup : Popup
 		{
             if (transaction is Income)
 			{
-                transactionViewModel.IsIncome = true;
+                transactionViewModel.isIncome = true;
                 transactionViewModel.CurrentCategory = (transaction as Income).IncomeCategory;
             }
 			else

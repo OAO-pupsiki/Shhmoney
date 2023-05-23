@@ -10,8 +10,8 @@
     <VerticalStackLayout>
         <Label Text="Тип транзакции" FontAttributes="Bold" Margin="7" />
         <StackLayout Orientation="Horizontal">
-            <RadioButton Content="Income" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
-            <RadioButton Content="Expense" GroupName="TransactionType" IsChecked="{Binding IsExpense}"/>
+            <RadioButton Content="Доход" GroupName="TransactionType" IsChecked="{Binding IsIncome}" />
+            <RadioButton Content="Расход" GroupName="TransactionType" IsChecked="{Binding IsExpense}"/>
         </StackLayout>
 
         <Label Text="Счёт" FontAttributes="Bold" />
@@ -46,8 +46,8 @@
         </StackLayout>
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-            <Button Text="Сохранить" Clicked="SaveButtonClicked" WidthRequest="80" />
-            <Button Text="Отмена" Clicked="CancelButtonClicked" WidthRequest="80"/>
+            <Button Text="Сохранить" Clicked="SaveButtonClicked" />
+            <Button Text="Отмена" Clicked="CancelButtonClicked"/>
         </StackLayout>
     </VerticalStackLayout>
 
