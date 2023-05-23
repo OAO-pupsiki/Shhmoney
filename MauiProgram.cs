@@ -67,6 +67,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<TransactionService>();
 
+        builder.Services.AddSingleton<UserViewModel>();
+        builder.Services.AddSingleton<UserPage>();
+
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

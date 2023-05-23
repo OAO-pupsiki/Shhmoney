@@ -27,19 +27,38 @@ namespace Shhmoney.Services
             };
             return _limitRepository.Add(mounthLimit);
         }
-
-       /* public void UpdateMounthLimit(int id, int limit, int totalLimit)
+        public bool IsExceeded(int categoryId, decimal expenseAmount)
         {
-            var mounthLimit = GetMounthLimitById(id);
-            mounthLimit.Limit = limit;
-            mounthLimit.TotalLimit = totalLimit;
-            _limitRepository.Update(mounthLimit);
-        }*/
+            var monthLimit = _limitRepository.GetMounthLimitByCategoryId(categoryId);
 
-        public MounthLimit GetMounthLimitById(int categoryId)
-        {
-            return _limitRepository.GetMounthLimitById(categoryId);
+            // Проверяем, если месячный лимит не найден, считаем, что он не превышен
+            if (monthLimit == null)
+            {
+                return false;
+            }
+
+            // Сравниваем расход с лимитом
+            return expenseAmount > monthLimit.Limit;
         }
+    
+
+
+
+
+
+        /* public void UpdateMounthLimit(int id, int limit, int totalLimit)
+         {
+             var mounthLimit = GetMounthLimitById(id);
+             mounthLimit.Limit = limit;
+             mounthLimit.TotalLimit = totalLimit;
+             _limitRepository.Update(mounthLimit);
+         }*/
+
+        public MounthLimit GetMounthLimitByCategoryId(int categoryId)
+        {
+            return _limitRepository.GetMounthLimitByCategoryId(categoryId);
+        }
+    
     }
 
 }

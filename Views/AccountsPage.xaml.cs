@@ -3,7 +3,7 @@ namespace Shhmoney.Views;
 
 public partial class AccountsPage : ContentPage
 {
-	public AccountsPage(AccountViewModel accountViewModel)
+    public AccountsPage(AccountViewModel accountViewModel)
 	{
 		InitializeComponent();
         BindingContext = accountViewModel;
@@ -24,4 +24,12 @@ public partial class AccountsPage : ContentPage
     {
         Shell.Current.GoToAsync("//home/articles");
     }
+    private void OnCurrencySelectedIndexChanged(object sender, EventArgs e)
+    {
+        var picker = (Picker)sender;
+        string selectedCurrencyCode = picker.SelectedItem as string;
+        var accountViewModel = (AccountViewModel)BindingContext;
+        accountViewModel.SelectedCurrency = accountViewModel.Currencies.FirstOrDefault(c => c.Code == selectedCurrencyCode);
+    }
+
 }
